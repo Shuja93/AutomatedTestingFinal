@@ -1,0 +1,2 @@
+Userlevel,OrganizationName,GroupType,IsSubOU,Email,IsNewGroup,ADGroupName,IncomingMessageSize,IsCR,AdminUsers,MemberUsers,AllSendersAuth,DisplayName
+Host,debugorg.com,Security,TRUE,dl2@debugorg.com,TRUE,,30,TRUE,manager@debugorg.com,User;user96@debugorg.com User;user4@debugorg.com,TRUE,Test DL 2

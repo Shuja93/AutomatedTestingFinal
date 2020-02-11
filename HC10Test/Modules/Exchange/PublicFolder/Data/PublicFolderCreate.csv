@@ -1,0 +1,2 @@
+OrganizationName,PublicFolderType,Email,IsMailEnabled,PublicFolderName,PublicFolderMailbox,PublicFolderSize,IsCR
+debugorg.com,Mail,testpf3@debugorg.com,TRUE,Test PF 1,,1024,FALSE

@@ -1,0 +1,2 @@
+OrganizationName,MailboxType,IsSubOU,Email,MailboxSize,IsCR,FirstName,LastName,DisplayName,Country,State,OfficeLocation,Address,City,ZipCode,JobTitle,Company,Department,BusinessPhone,Fax,HomePhone,MobilePhone,Pager,Notes,Managedby
+debugorg.com,Equipment,FALSE,rmbx1@debugorg.com,1024,FALSE,Shuja,Hanif,Shuja Hanif,,,F11,Islamabad,Islamabad,44000,QA,HC,Dev,9.23E+11,9.23E+11,9.23E+11,9.23E+11,9.23E+11,9.23E+11,
