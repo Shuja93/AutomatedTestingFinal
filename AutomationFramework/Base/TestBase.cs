@@ -12,7 +12,7 @@ namespace HC10AutomationFramework.Base
         {
             switch (browserType)
             {
-                case BrowserType.InternetExplorer:
+                case BrowserType.Edge:
                     DriverContext.Driver = new EdgeDriver();
                     DriverContext.Browser = new Browser(DriverContext.Driver);
                     break;

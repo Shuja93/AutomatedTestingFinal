@@ -20,7 +20,7 @@ namespace HC10AutomationFramework.Base
 
     public enum BrowserType
     {
-        InternetExplorer,
+        Edge,
         Firefox,
         Chrome
     }

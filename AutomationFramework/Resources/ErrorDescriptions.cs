@@ -14,5 +14,8 @@ namespace HC10AutomationFramework.Resources
         public static string ErrorManagerNotAdded => "Error occured while adding the manager";
         public static string ErrorSelectingCR => "Error occured while adding CR";
         public static string ErrorAddingUserinPopUp => "Mentioned User(s) not found.";
+        public static string ErrorUserCount => "Number of Exchange Objects detected is not correct";
+
+        public static string ErrorUserNotFound => "Mentioned User(s) not found.";
     }
 }

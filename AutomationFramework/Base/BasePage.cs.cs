@@ -213,7 +213,7 @@ namespace HC10AutomationFramework.Base
                 var users = userList.Split(' ');
                 if (listLength.Count != users.Length)
                 {
-                    return TestStatus.Failed;
+                    return ErrorDescriptions.ErrorUserCount;
                 }
 
                 foreach (string user in users)
@@ -233,7 +233,7 @@ namespace HC10AutomationFramework.Base
 
             catch (NoSuchElementException)
             {
-                return "Mentioned User(s) not found.";
+                return ErrorDescriptions.ErrorUserNotFound;
             }
             catch (Exception e)
             {

@@ -65,8 +65,8 @@ namespace HC10Test
             if (TestTracker.distributionListStatus[Convert.ToString(TestContext.DataRow["Email"])] == TestStatus.Success)
             {
                 NavigateToDLDashboard(TestContext);
-                _softAssertions.Add("Test Verify DL Members", TestStatus.Success, VerifyMembersDL(TestContext));
-                _softAssertions.Add("Test Verify Mailbox Advance Properties", TestStatus.Success, VerifyAdministratorDL(TestContext));
+                _softAssertions.Add("Test Verify DL Members", TestStatus.Success, VerifyMembersDL(TestContext,true));
+                _softAssertions.Add("Test Verify Mailbox Advance Properties", TestStatus.Success, VerifyAdministratorDL(TestContext,true));
                 ClickDlBreakCrumb();
             }
         }
@@ -118,10 +118,10 @@ namespace HC10Test
                     VerifyRejectedSenders(TestContext));
 
                 _softAssertions.Add("Test Add Members", TestStatus.Success, AddMembersDL(TestContext));
-                _softAssertions.Add("Test Verify Add Members", TestStatus.Success, VerifyMembersDL(TestContext));
+                _softAssertions.Add("Test Verify Add Members", TestStatus.Success, VerifyMembersDL(TestContext,false));
 
                 _softAssertions.Add("Test Add Administrator", TestStatus.Success, AddAdministratorDL(TestContext));
-                _softAssertions.Add("Test Add Administrator", TestStatus.Success, VerifyMembersDL(TestContext));
+                _softAssertions.Add("Test Add Administrator", TestStatus.Success, VerifyMembersDL(TestContext,false));
 
 
                 ClickDlBreakCrumb();
