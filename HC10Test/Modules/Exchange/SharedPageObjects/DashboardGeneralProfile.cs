@@ -100,6 +100,64 @@ namespace HC10Test.PageObjects
 
         }
 
+        public string VerifyGeneralProperties(string firstname, string lastName, string displayName, string country, string state, string
+            officeLocation, string address, string city, string zipCode, string jobTitle, string company, string department, string businessPhone, string
+            fax, string homePhone, string mobilePhone, string pager, string notes)
+        {
+            try
+            {
+                expectedProperties.Add("FirstName", firstname);
+                expectedProperties.Add("LastName", lastName);
+                expectedProperties.Add("DisplayName", displayName);
+                //expectedProperties.Add("Country", country);
+                //expectedProperties.Add("State", state);
+                expectedProperties.Add("Office Location", officeLocation);
+                expectedProperties.Add("Address", address);
+                expectedProperties.Add("City", city);
+                expectedProperties.Add("Zip Code", zipCode);
+                expectedProperties.Add("Job Title", jobTitle);
+                expectedProperties.Add("Company", company);
+                expectedProperties.Add("Department", department);
+                expectedProperties.Add("Business Phone", businessPhone);
+                expectedProperties.Add("Fax", fax);
+                expectedProperties.Add("Home Phone", homePhone);
+                expectedProperties.Add("Mobile Phone", mobilePhone);
+                expectedProperties.Add("Pager", pager);
+                expectedProperties.Add("Notes", notes);
+
+
+                actualProperties.Add("FirstName", Convert.ToString(txtFirstNameElem.GetAttribute("value")));
+                actualProperties.Add("LastName", Convert.ToString(txtLastNameElem.GetAttribute("value")));
+                actualProperties.Add("DisplayName", Convert.ToString(txtDisplayNameElem.GetAttribute("value")));
+                //actualProperties.Add("Country", dropdownCountryElem.Text);
+                var selectElement = new SelectElement(dropdownStateElem);
+                string _state = selectElement.SelectedOption.Text;
+                //actualProperties.Add("State", _state);
+                actualProperties.Add("Office Location", Convert.ToString(txtGeneralProfileOfficeLocationElem.GetAttribute("value")));
+                actualProperties.Add("Address", Convert.ToString(txtGeneralProfileStreetAddressElem.GetAttribute("value")));
+                actualProperties.Add("City", Convert.ToString(txtGeneralProfileCityElem.GetAttribute("value")));
+                actualProperties.Add("Zip Code", Convert.ToString(txtGeneralProfileZipCodeElem.GetAttribute("value")));
+                actualProperties.Add("Job Title", Convert.ToString(txtGeneralProfileJobTitleElem.GetAttribute("value")));
+                actualProperties.Add("Company", Convert.ToString(txtxGeneralProfileCompanyElem.GetAttribute("value")));
+                actualProperties.Add("Department", Convert.ToString(txtGeneralProfileDepartmentElem.GetAttribute("value")));
+                actualProperties.Add("Business Phone", Convert.ToString(txtGeneralProfileBusinessPhoneElem.GetAttribute("value")));
+                actualProperties.Add("Fax", Convert.ToString(txtGeneralProfileFaxElem.GetAttribute("value")));
+                actualProperties.Add("Home Phone", Convert.ToString(txtGeneralProfileHomePhoneElem.GetAttribute("value")));
+                actualProperties.Add("Mobile Phone", Convert.ToString(txtGeneralProfileMobilePhoneElem.GetAttribute("value")));
+                actualProperties.Add("Pager", Convert.ToString(txtGeneralProfilePagerElem.GetAttribute("value")));
+                actualProperties.Add("Notes", Convert.ToString(txtGeneralProfileNotesElem.GetAttribute("value")));
+
+                return CompareLists(expectedProperties, actualProperties);
+
+            }
+
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
         public string SetGeneralProperties(string firstname, string lastName, string displayName, string country, string state, string officeLocation, string address, string city, string zipCode, string jobTitle, string company, string department, string managedBy, string businessPhone, string fax, string homePhone, string mobilePhone, string pager, string notes)
         {
             try

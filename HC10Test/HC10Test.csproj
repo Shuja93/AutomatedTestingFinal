@@ -157,6 +157,7 @@
     <Compile Include="Modules\Exchange\ResourceMailbox\PageObjects\ExgCreateResourceMailbox.cs" />
     <Compile Include="Modules\Exchange\ResourceMailbox\PageObjects\ExgResourceMailboxDashboard.cs" />
     <Compile Include="Modules\Exchange\ResourceMailbox\PageObjects\ExgOrgResourceMailboxes .cs" />
+    <Compile Include="Modules\Exchange\ResourceMailbox\PageObjects\ExgResourceMailboxAdvanceProperties.cs" />
     <Compile Include="Modules\Exchange\ResourceMailbox\Tests\BaseResourceMailbox.cs" />
     <Compile Include="Modules\Exchange\ResourceMailbox\Tests\TestClassResourceMailbox.cs" />
     <Compile Include="Modules\Exchange\SharedPageObjects\DashboardAccepetedSenders.cs" />

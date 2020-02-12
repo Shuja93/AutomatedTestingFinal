@@ -47,7 +47,7 @@ namespace HC10AutomationFramework.Extensions
         //revisit
         public static void ClickWithWait(this IWebElement element,string waitMethod)
         {
-            DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             element.Click();
             
             switch (waitMethod) 
@@ -95,6 +95,7 @@ namespace HC10AutomationFramework.Extensions
                 while (true)
                 {
                     DriverContext.Driver.FindElement(By.CssSelector("spinnerbg"));
+
                 }
             }
             catch (Exception )

@@ -8,6 +8,7 @@ using HC10AutomationFramework.TestTracker;
 namespace HC10Test
 {
     [TestClass]
+    [TestCategory("Public Folder")]
     public class TestClassPublicFolder : BasePublicFolder
     {
 
@@ -48,7 +49,7 @@ namespace HC10Test
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @"C:\Users\Shuja\source\repos\AutomationFramework\AutomatedTesting\HC10Test\Modules\Exchange\PublicFolder\Data\PublicFolder_Create.csv", "PublicFolder_Create#csv", DataAccessMethod.Sequential)]
         [TestMethod]
         [TestCategory("Exchange")]
-        [TestCategory("Public Folder")] 
+
         public void PublicFolderCreation()
         {
             NavigateToPublicFolderPage(TestContext);

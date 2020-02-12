@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HC10Test.PageObjects;
 using HC10AutomationFramework.Base;
+using HC10AutomationFramework.Config;
 using HC10AutomationFramework.Enum;
 using HC10AutomationFramework.TestTracker;
 
@@ -10,7 +11,8 @@ namespace HC10Test
 {
 
     [TestClass]
-     public class TestClassResourceMailbox : BaseResourceMailbox
+    [TestCategory("ResourceMailbox")]
+    public class TestClassResourceMailbox : BaseResourceMailbox
     {
         public TestContext TestContext { get; set; }
         private SoftAssertions _softAssertions;
@@ -18,20 +20,15 @@ namespace HC10Test
         [ClassInitialize]
         public static void ClassSetup(TestContext TestContext)
         {
-
-            OpenBrowser(BrowserType.Chrome);
-            DriverContext.Browser.GoToUrl("https://hostingcontrollerdemo.com/");
-            DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            DriverContext.Driver.Manage().Window.Maximize();
-            LoginPage login = new LoginPage();
-            login.Login();
+            var testInitialize = new TestInitialize();
+            testInitialize.InitializeSettings();
         }
 
         [ClassCleanup]
         public static void ClassCleanup()
         {
             DriverContext.Driver.Close();
-             DriverContext.Driver.Quit();
+            DriverContext.Driver.Quit();
         }
 
         [TestInitialize]
@@ -46,23 +43,26 @@ namespace HC10Test
             _softAssertions.AssertAll();
         }
 
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @"C:\Users\Shuja\source\repos\AutomationFramework\AutomatedTesting\HC10Test\Modules\Exchange\ResourceMailbox\Data\Resourcemailbox_Create.csv", "Resourcemailbox_Create#csv", DataAccessMethod.Sequential)]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\Modules\\Exchange\\ResourceMailbox\\Data\\ResourceMailboxCreate.csv", "ResourceMailboxCreate#csv", DataAccessMethod.Sequential)]
         [TestMethod]
         [TestCategory("Exchange")]
-        [TestCategory("Resource Mailbox")]
+       
         public void ResourceMailboxCreation()
         {
+            if (Convert.ToString(TestContext.DataRow["Userlevel"]).ToLower() != Settings.UserLevel.ToLower())
+            {
+                Assert.Inconclusive();
+            }
+
             NavigateToResourceMailboxPage(TestContext);
             _softAssertions.Add("Test Create Mailbox", TestStatus.Success, CreateResourceMailbox(TestContext));
-            
 
             if (TestTracker.resourceMailboxStatus[Convert.ToString(TestContext.DataRow["Email"])] == TestStatus.Success)
             {
                 NavigateToResourceMailboxDashboard(TestContext);
                 _softAssertions.Add("Test Verify Mailbox General Properties", TestStatus.Success, VerifyMailBoxGeneralProfile(TestContext,true));
-                //_softAssertions.Add("Test Verify Mailbox Advance Properties", TestStatus.Success, VerifyMailBoxAdvanceProperties(TestContext,true));
+                _softAssertions.Add("Test Verify Mailbox Advance Properties", TestStatus.Success, VerifyMailBoxAdvanceProperties(TestContext,true));
                 ClickResourceMailboxBreakCrumb();
-
             }
 
            
@@ -71,12 +71,16 @@ namespace HC10Test
 
 
 
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @"C:\Users\Shuja\source\repos\AutomationFramework\AutomatedTesting\HC10Test\Modules\Exchange\ResourceMailbox\Data\Resourcemailbox_Dashboard.csv", "Resourcemailbox_Dashboard#csv", DataAccessMethod.Sequential)]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\Modules\\Exchange\\ResourceMailbox\\Data\\ResourceMailboxDashboard.csv", "ResourceMailboxDashboard#csv", DataAccessMethod.Sequential)]
         [TestMethod]
         [TestCategory("Exchange")]
-        [TestCategory("Resource Mailbox")]
+       
         public void ResourceMailboxUpdateDashboard()
         {
+            if (Convert.ToString(TestContext.DataRow["Userlevel"]).ToLower() != Settings.UserLevel.ToLower())
+            {
+                Assert.Inconclusive();
+            }
 
             if (TestTracker.resourceMailboxStatus[Convert.ToString(TestContext.DataRow["Email"])] == TestStatus.Success)
             { 
@@ -107,8 +111,8 @@ namespace HC10Test
                 _softAssertions.Add("Test Add Forwarding User", TestStatus.Success, AddForwarding(TestContext));
                 _softAssertions.Add("Test Verify Add Forwarding Users", TestStatus.Success, VerifyForwarding(TestContext));
 
-                _softAssertions.Add("Test Add Archive", TestStatus.Success, AddArchive(TestContext));
-                _softAssertions.Add("Test Verify Add Archive", TestStatus.Success, VerifyArchive(TestContext));
+               //_softAssertions.Add("Test Add Archive", TestStatus.Success, AddArchive(TestContext));
+               //_softAssertions.Add("Test Verify Add Archive", TestStatus.Success, VerifyArchive(TestContext));
                 ClickResourceMailboxBreakCrumb();
 
             }

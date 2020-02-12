@@ -7,6 +7,7 @@ using HC10AutomationFramework.Logs;
 using HC10AutomationFramework.Enum;
 using System.Net.Mail;
 using System.Threading;
+using HC10AutomationFramework.Config;
 using HC10AutomationFramework.Extensions;
 using HC10AutomationFramework.Helpers;
 using HC10AutomationFramework.TestTracker;
@@ -15,10 +16,9 @@ using OpenQA.Selenium;
 namespace HC10Test
 {
      public class BaseResourceMailbox : BasePage
-
      {
-         private IWebElement btnAddForwardingUser => ByXPath("//*[@id='btn-rmbuser']");
-         private readonly ExgResourceMailboxDashboard pageResourceMailboxDashboard;
+
+        private readonly ExgResourceMailboxDashboard pageResourceMailboxDashboard;
 
         public BaseResourceMailbox()
         {
@@ -74,7 +74,7 @@ namespace HC10Test
                 {
                     Thread.Sleep(5000);
                 }
-                //ReporterClass.Reporter("Exchange", "Host", "Create Mailbox", "Mailbox Creation Test", organizationName, "Mailbox", email, "SubOU: " + isSubOU + "; IsNewUser: " + isNewUser + "; IsCr: " + isCR + "; Mailbox/CR Size :" + mailboxSize, status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Create Resource Mailbox", "Resource Mailbox Creation Test", organizationName, "Resource Mailbox", email, "Resource Mailbox Type: "+mailboxType+" SubOU: " + isSubOU +  "; IsCr: " + isCR + "; Mailbox/CR Size :" + mailboxSize, status, standing);
                 TestTracker.resourceMailboxStatus.Add(email, status);
 
                 return status;
@@ -86,8 +86,6 @@ namespace HC10Test
             }
             
         }
-
-
 
         public string VerifyMailBoxGeneralProfile(TestContext testContext,bool isNewMailbox)
         {
@@ -114,7 +112,6 @@ namespace HC10Test
             string jobTitle = Convert.ToString(testContext.DataRow["JobTitle"]);
             string company = Convert.ToString(testContext.DataRow["Company"]);
             string department = Convert.ToString(testContext.DataRow["Department"]);
-            string managedBy = Convert.ToString(testContext.DataRow["ManagedBy"]);
             string businessPhone = Convert.ToString(testContext.DataRow["BusinessPhone"]);
             string fax = Convert.ToString(testContext.DataRow["Fax"]);
             string homePhone = Convert.ToString(testContext.DataRow["HomePhone"]);
@@ -126,7 +123,7 @@ namespace HC10Test
             
             //Act
             string standing = pageResourceMailboxDashboard.VerifyGeneralProperties(firstname, lastName, displayName, country, state,
-                officeLocation, address, city, zipCode, jobTitle, company, department, managedBy, businessPhone,
+                officeLocation, address, city, zipCode, jobTitle, company, department,  businessPhone,
                 fax, homePhone, mobilePhone, pager, notes);
 
             //Verify
@@ -137,11 +134,11 @@ namespace HC10Test
 
             if (isNewMailbox)
             {
-                ReporterClass.Reporter("Exchange", "Host", "Verify New mailbox General Properties", "Test to verify that the General Properties set at the time of mailbox creation are set successfully", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify new Resource Mailbox General Properties", "Test to verify that the General Properties set at the time of resource mailbox creation are set successfully", organizationName, "Resource Mailbox", email, "", status, standing);
             }
             else
             {
-                ReporterClass.Reporter("Exchange", "Host", "Verify New mailbox General Properties", "Test to verify that the General Properties set at the time of mailbox update are set successfully", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify updated Resource Mailbox General Properties", "Test to verify that the General Properties set at the time of resource mailbox update via Dashboard are set successfully", organizationName, "Resource Mailbox", email, "", status, standing);
             }
             return status;
         }
@@ -155,22 +152,20 @@ namespace HC10Test
             string mailboxSize = Convert.ToString(testContext.DataRow["MailboxSize"]);
             bool isCR = Convert.ToBoolean(testContext.DataRow["IsCR"]);
 
-
-
-
             //Act
 
             if (isNewMailbox)
             {
                 pageResourceMailboxDashboard.OpenAdvancedProperties();
-                
             }
-            btnTabRefreshButtonElem.ClickWithWait("spinner");
-            
-            string standing = pageResourceMailboxDashboard.VerifyAdvanceProperties(mailboxSize,isCR);
-        
 
-    
+           
+            btnTabRefreshButtonElem.ClickWithWait("spinner");
+
+            string standing = pageResourceMailboxDashboard.VerifyAdvanceProperties(mailboxSize, isCR);
+
+
+
             //Verify
             if (!string.IsNullOrWhiteSpace(standing))
             {
@@ -179,12 +174,12 @@ namespace HC10Test
 
             if (isNewMailbox)
             {
-                ReporterClass.Reporter("Exchange", "Host", "Verify New mailbox Advance Properties", "Test to verify that the Advance Properties set at the time of mailbox creation are set successfully", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify new Resource Mailbox Advance Properties", "Test to verify that the Advance Properties set at the time of mailbox creation are set successfully", organizationName, "Resource Mailbox", email, "", status, standing);
 
             }
             else
             {
-                ReporterClass.Reporter("Exchange", "Host", "Verify New mailbox Advance Properties", "Test to verify that the Advance Properties set at the time of mailbox update are set successfully", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Resource Mailbox Advance Properties via Dashboard", "Test to verify that the Advance Properties set at the time of mailbox update via Dashboard are set successfully", organizationName, "Resource Mailbox", email, "", status, standing);
             }
             return status;
         }
@@ -278,7 +273,7 @@ namespace HC10Test
       
             //Verify
             string status = VerifyResult(ExchangeMessages.UpdateMailboxGeneralProperties, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Update Mailbox General Properties", "Test to verify if General Properties are being updated properly or not", organizationName, "Mailbox", email, "Refer to CSV File", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Update Resource Mailbox General Properties", "Test to verify if General Properties are being updated properly or not", organizationName, "Resource Mailbox", email, "Refer to CSV File", status, standing);
             return status;
         }
         
@@ -299,7 +294,7 @@ namespace HC10Test
         
             //Verify
             string status = VerifyResult(ExchangeMessages.AddResourceEmailAddress, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Email Address", "Test to check if email addresses are added as additional aliases or not", organizationName, "Mailbox", email, "Email: " + newEmail, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Email Address", "Test to check if email addresses are added as additional aliases or not", organizationName, "Resource Mailbox", email, "Email: " + newEmail, status, standing);
             
             return status;
 
@@ -322,7 +317,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of new email alias", "Test to check if the email address has been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of new email alias", "Test to check if the email address has been assigned correctly or not", organizationName, "Resource Mailbox", email, "", status, standing);
             return status;
         }
 
@@ -339,7 +334,7 @@ namespace HC10Test
 
             //Verify
             string status = VerifyResult(ExchangeMessages.AddSendOnBehalfUsers, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Send On Behalf Users", "Test to check if Send On Behalf users are added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Send On Behalf Users", "Test to check if Send On Behalf users are added successfully", organizationName, "Resource Mailbox", email, "Email List: " + userList, status, standing);
         
             return status;
         }
@@ -360,7 +355,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of new Send On Behalf users", "Test to check if the Send On Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of new Send On Behalf users", "Test to check if the Send On Users have been assigned correctly or not", organizationName, "Resource Mailbox", email, "", status, standing);
         
             return status;
         }
@@ -380,7 +375,7 @@ namespace HC10Test
         
             //Verify
             string status = VerifyResult(ExchangeMessages.AddFullAccessPermissions, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Full Access Permissions", "Test to check if Full Access Permissions are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Full Access Permissions", "Test to check if Full Access Permissions are being added successfully", organizationName, "Resource Mailbox", email, "Email List: " + userList, status, standing);
             
             return status;
         }
@@ -401,7 +396,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Full Access Permissions", "Test to check if Full Access Permissions have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Full Access Permissions", "Test to check if Full Access Permissions have been assigned correctly or not", organizationName, "Resource Mailbox", email, "", status, standing);
             
             return status;
         }
@@ -419,7 +414,7 @@ namespace HC10Test
 
             //Verify
             string status = VerifyResult(ExchangeMessages.AddSendAsPermissions, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Send As Permissions", "Test to check if Send As Permissions are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Send As Permissions", "Test to check if Send As Permissions are being added successfully", organizationName, "Resource Mailbox", email, "Email List: " + userList, status, standing);
             return status;
 
 
@@ -442,7 +437,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Send As Permissions", "Test to check if Send As Permissions have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Send As Permissions", "Test to check if Send As Permissions have been assigned correctly or not", organizationName, "Resource Mailbox", email, "", status, standing);
             return status;
         }
 
@@ -459,7 +454,7 @@ namespace HC10Test
             
             //Verify
             string status = VerifyResult(ExchangeMessages.AddAcceptedUsers, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Accepted Users", "Test to check if Accepted Users are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Accepted Users", "Test to check if Accepted Users are being added successfully", organizationName, "Resource Mailbox", email, "Email List: " + userList, status, standing);
             return status;
 
         }
@@ -480,7 +475,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Accepted Users", "Test to check if Accepted Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Accepted Users", "Test to check if Accepted Users have been assigned correctly or not", organizationName, "Resource Mailbox", email, "", status, standing);
             return status;
 
         }
@@ -498,7 +493,7 @@ namespace HC10Test
 
             //Verify    
             string status = VerifyResult(ExchangeMessages.AddRejectedSenders, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Rejected Users", "Test to check if Rejected Users are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Rejected Users", "Test to check if Rejected Users are being added successfully", organizationName, "Resource Mailbox", email, "Email List: " + userList, status, standing);
             return status;
 
         }
@@ -516,7 +511,7 @@ namespace HC10Test
                 {
                     status = TestStatus.Failed;
                 }
-                ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Rejected Users", "Test to check if Rejected Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Rejected Users", "Test to check if Rejected Users have been assigned correctly or not", organizationName, "Resource Mailbox", email, "", status, standing);
                 return status;
 
 
@@ -532,10 +527,10 @@ namespace HC10Test
             string user = Convert.ToString(testContext.DataRow["ForwardingEmail"]);
 
             pageResourceMailboxDashboard.OpenForwarding();
-            string standing = pageResourceMailboxDashboard.SetForwarding(user,ou,exchangeObject, btnAddForwardingUser);
+            string standing = pageResourceMailboxDashboard.SetForwarding(user,ou,exchangeObject);
 
             string status = VerifyResult(ExchangeMessages.AddForwarding, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Forwarding", "Test to check if Forwarding User is being added successfully", organizationName, "Mailbox", email, "Organization: " + ou+ "; Exchange Object: "+exchangeObject+ "; Email: "+user,status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Forwarding", "Test to check if Forwarding User is being added successfully", organizationName, "Resource Mailbox", email, "Organization: " + ou+ "; Exchange Object: "+exchangeObject+ "; Email: "+user,status, standing);
             return status;
 
         }
@@ -549,60 +544,50 @@ namespace HC10Test
 
             string standing = pageResourceMailboxDashboard.VerifyForwarding(user);
 
-            if (standing != TestStatus.Success)
+             if (standing != TestStatus.Success)
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Forwarding User", "Test to check if forwarding Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Forwarding User", "Test to check if forwarding Users have been assigned correctly or not", organizationName, "Resource Mailbox", email, "", status, standing);
             return status;
         }
 
         
-        public string AddArchive(TestContext testContext)
-        {
+        //public string AddArchive(TestContext testContext)
+        //{
 
-            string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
-            string email = Convert.ToString(testContext.DataRow["Email"]);
-            pageResourceMailboxDashboard.OpenArchive();
+        //    string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
+        //    string email = Convert.ToString(testContext.DataRow["Email"]);
+        //    pageResourceMailboxDashboard.OpenArchive();
 
-            string standing = pageResourceMailboxDashboard.SetArchive();
-
-
-            string status = VerifyResult(ExchangeMessages.AddArchive, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Archive", "Test to check if archiving is being enabled or not", organizationName, "Mailbox", email, "", status, standing);
-            pageResourceMailboxDashboard.CloseDialogueBox();
-            return status;
-        }
-        public string VerifyArchive(TestContext testContext)
-        {
-            string status = TestStatus.Success;
-            string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
-            string email = Convert.ToString(testContext.DataRow["Email"]);
-            string displayName = Convert.ToString(testContext.DataRow["NewDisplayName"]);
+        //    //string standing = pageResourceMailboxDashboard.SetArchive();
 
 
-            string searchString;
+        //    string status = VerifyResult(ExchangeMessages.AddArchive, standing);
+        //    ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Archive", "Test to check if archiving is being enabled or not", organizationName, "Resource Mailbox", email, "", status, standing);
+        //    pageResourceMailboxDashboard.CloseDialogueBox();
+        //    return status;
+        //}
+        //public string VerifyArchive(TestContext testContext)
+        //{
+        //    string status = TestStatus.Success;
+        //    string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
+        //    string email = Convert.ToString(testContext.DataRow["Email"]);
+        //    string displayName = Convert.ToString(testContext.DataRow["NewDisplayName"]);
 
-            if (displayName == "")
-            {
-                MailAddress addr = new MailAddress(email);
-                searchString = addr.User;
-            }
-            else
-            {
-                searchString = displayName;
-            }
 
-            string standing = pageResourceMailboxDashboard.VerifyArchive(searchString);
+          
 
-            if (standing != TestStatus.Success)
-            {
-                status = TestStatus.Failed;
-            }
-            ReporterClass.Reporter("Exchange", "Host", "Verify enabling of Archiving", "Test to check if archiving has been enabled or not", organizationName, "Mailbox", email, "", status, standing);
-            return status;
+        //    string standing = pageResourceMailboxDashboard.VerifyArchive(searchString);
 
-        }
+        //    if (standing != TestStatus.Success)
+        //    {
+        //        status = TestStatus.Failed;
+        //    }
+        //    ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify enabling of Archiving", "Test to check if archiving has been enabled or not", organizationName, "Resource Mailbox", email, "", status, standing);
+        //    return status;
+
+        //}
 
         public static void NavigateToResourceMailboxDashboard(TestContext testContext)
         {
@@ -676,118 +661,7 @@ namespace HC10Test
         {
             lnkResourceMailboxes.ClickWithWait("header");
         }
-
-
-
-
-        //public Tuple<IDictionary<string, string>, IDictionary<string, string>> VerifyUpdateMailboxGeneralProperties(
-        //    TestContext testContext)
-        //{
-        //    try
-        //    {
-        //        btnTabRefreshButtonElem.Click();
-        //        string firstname = Convert.ToString(testContext.DataRow["FirstName"]);
-        //        string lastName = Convert.ToString(testContext.DataRow["LastName"]);
-        //        string displayName = Convert.ToString(testContext.DataRow["NewDisplayName"]);
-        //        string country = Convert.ToString(testContext.DataRow["Country"]);
-        //        string state = Convert.ToString(testContext.DataRow["State"]);
-        //        string officeLocation = Convert.ToString(testContext.DataRow["OfficeLocation"]);
-        //        string address = Convert.ToString(testContext.DataRow["Address"]);
-        //        string city = Convert.ToString(testContext.DataRow["City"]);
-        //        string zipCode = Convert.ToString(testContext.DataRow["ZipCode"]);
-        //        string jobTitle = Convert.ToString(testContext.DataRow["JobTitle"]);
-        //        string company = Convert.ToString(testContext.DataRow["Company"]);
-        //        string department = Convert.ToString(testContext.DataRow["Department"]);
-        //        string managedBy = Convert.ToString(testContext.DataRow["ManagedBy"]);
-        //        string businessPhone = Convert.ToString(testContext.DataRow["BusinessPhone"]);
-        //        string fax = Convert.ToString(testContext.DataRow["Fax"]);
-        //        string homePhone = Convert.ToString(testContext.DataRow["HomePhone"]);
-        //        string mobilePhone = Convert.ToString(testContext.DataRow["MobilePhone"]);
-        //        string pager = Convert.ToString(testContext.DataRow["Pager"]);
-        //        string notes = Convert.ToString(testContext.DataRow["Notes"]);
-
-
-        //        //Act
-        //        IDictionary<string, string> expectedMailboxGeneralProperties = new Dictionary<string, string>();
-        //        expectedMailboxGeneralProperties.Add("FirstName", firstname);
-        //        expectedMailboxGeneralProperties.Add("LastName", lastName);
-        //        expectedMailboxGeneralProperties.Add("DisplayName", displayName);
-        //        expectedMailboxGeneralProperties.Add("Country", country);
-        //        expectedMailboxGeneralProperties.Add("State", state);
-        //        expectedMailboxGeneralProperties.Add("Office Location", officeLocation);
-        //        expectedMailboxGeneralProperties.Add("Address", address);
-        //        expectedMailboxGeneralProperties.Add("City", city);
-        //        expectedMailboxGeneralProperties.Add("Zip Code", zipCode);
-        //        expectedMailboxGeneralProperties.Add("Job Title", jobTitle);
-        //        expectedMailboxGeneralProperties.Add("Company", company);
-        //        expectedMailboxGeneralProperties.Add("Department", department);
-        //        expectedMailboxGeneralProperties.Add("ManagedBy", managedBy);
-        //        expectedMailboxGeneralProperties.Add("Business Phone", businessPhone);
-        //        expectedMailboxGeneralProperties.Add("Fax", fax);
-        //        expectedMailboxGeneralProperties.Add("Home Phone", homePhone);
-        //        expectedMailboxGeneralProperties.Add("Mobile Phone", mobilePhone);
-        //        expectedMailboxGeneralProperties.Add("Pager", pager);
-        //        expectedMailboxGeneralProperties.Add("Notes", notes);
-
-
-
-
-        //        ExgMailboxDashboard mailboxDashboard = new ExgMailboxDashboard();
-        //        IDictionary<string, string> actualMailboxStorageProperties = mailboxDashboard.VerifyGeneralProperties();
-        //        return Tuple.Create(expectedMailboxGeneralProperties, actualMailboxStorageProperties);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogClass.AppendLogs(ex);
-        //        return null;
-        //    }
-        //}
-
-
-        //public Tuple<IDictionary<string, string>, IDictionary<string, string>> VerifyMailBoxStorageQuota(
-        //    TestContext testContext)
-        //{
-        //    try
-        //    {
-        //        //Arrange
-        //        string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
-        //        string email = Convert.ToString(testContext.DataRow["Email"]);
-        //        string mailboxSize = Convert.ToString(testContext.DataRow["MailboxSize"]);
-        //        bool isCR = System.Convert.ToBoolean(testContext.DataRow["IsCR"]);
-        //        string displayName = Convert.ToString(testContext.DataRow["DisplayName"]);
-        //        //Act
-        //        IDictionary<string, string> expectedMailboxStorageProperties = new Dictionary<string, string>();
-        //        expectedMailboxStorageProperties.Add("MailboxSize", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("IncomingSize", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("OutgoingSize", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("ProhibitSendAt", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("IssueWarningAt", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("Quota", isCR == false ? "Accumulated" : mailboxSize);
-
-
-
-        //        HomePage home = new HomePage();
-        //        home.ClickProvisioning();
-        //        ExchangeHome exgHome = home.ClickExchangeHome();
-        //        exgHome.SearchOrganizationName(organizationName);
-        //        ExgOrgMailboxes orgMailboxes = exgHome.MailboxesHome();
-        //        orgMailboxes.SearchMailboxName(email, displayName);
-        //        ExgMailboxDashboard mailboxDashboard = orgMailboxes.OpenMailboxDashboard();
-        //        mailboxDashboard.OpenAdvancedProperties();
-        //        IDictionary<string, string> actualMailboxStorageProperties = mailboxDashboard.GetStorageQuota();
-        //        return Tuple.Create(expectedMailboxStorageProperties, actualMailboxStorageProperties);
-
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        LogClass.AppendLogs(ex);
-        //        return null;
-
-        //    }
-
-        //}
-
+        
     }
 }
 

@@ -41,5 +41,7 @@ namespace HC10AutomationFramework.Enum
         public static string UpdateUserMailboxAdvanceProperties =>
             "User mailbox advanced properties updated successfully.";
 
+        public static string AddSendAsPermissionDl => "Distribution list permission settings updated successfully.";
+
     }
 }

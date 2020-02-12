@@ -10,7 +10,7 @@ namespace HC10Test.PageObjects
 {
     class DashboardForwarding : BasePage
     {
-        private IWebElement txtForwardingEmail => ById("RecipientName");
+        private IWebElement txtForwardingEmail => ByXPath("//*[@id='RecipientName']");
         private IWebElement ckbxEnableForwardingElem => ById("EnableForwardAddress");
         private IWebElement ckbxDeliverAndForwardEnableElem => ById("DeliverAndForwardEnable");
         private IWebElement btnAddUserForwardingElem => ByXPath("//button[contains(@onclick , 'ExgMailboxManager.GetMbxUser')]");
@@ -42,7 +42,6 @@ namespace HC10Test.PageObjects
             try
             {
                 btnTabRefreshButtonElem.ClickWithWait("spinner");
-                //WaitforSpinnerbgCondition
                 if (txtForwardingEmail.GetAttribute("value") != user)
                 {
                     return TestStatus.Failed;

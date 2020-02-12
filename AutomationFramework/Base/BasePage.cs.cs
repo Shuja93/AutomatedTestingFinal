@@ -19,6 +19,7 @@ namespace HC10AutomationFramework.Base
         {
             try
             {
+                SetDriverTime(30);
                 subOU.Click();
                 driver.SwitchTo().Window(driver.WindowHandles.Last());
                 driver.FindElement(By.ClassName("jstree-anchor")).Click();
@@ -26,7 +27,7 @@ namespace HC10AutomationFramework.Base
                 driver.SwitchTo().Window(driver.WindowHandles.First());
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
             }

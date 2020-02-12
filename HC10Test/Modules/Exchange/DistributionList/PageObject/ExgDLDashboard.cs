@@ -79,6 +79,7 @@ namespace HC10Test.PageObjects
         {
             try
             {
+                btnTabRefreshButtonElem.ClickWithWait("spinner");
                 string userList = "";
                 var users = members.Split(' ');
                 foreach (var user in users)
@@ -116,7 +117,7 @@ namespace HC10Test.PageObjects
         {
             try
             {
-                //btnTabRefreshButtonElem.ClickWithWait("spinner");
+                btnTabRefreshButtonElem.ClickWithWait("spinner");
 
                 return VerifyUsersInPermissions(DriverContext.Driver, userList, DivContainer.DlAdministrator);
 

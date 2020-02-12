@@ -33,9 +33,8 @@ namespace HC10Test.PageObjects
         {
             try
             {
-                //btnTabRefreshButtonElem.ClickWithWait("spinner"); 
                 btnTabRefreshButtonElem.ClickWithWait("spinner");
-                return VerifyUsersInPermissions(DriverContext.Driver, userList, DivContainer.SendAsPermissionsDl);
+                return VerifyUsersInPermissions(DriverContext.Driver, userList, DivContainer.SendAsPermissions);
 
             }
             catch (Exception ex)

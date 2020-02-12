@@ -7,6 +7,7 @@ using HC10AutomationFramework.Logs;
 using HC10AutomationFramework.Enum;
 using System.Net.Mail;
 using System.Threading;
+using HC10AutomationFramework.Config;
 using HC10AutomationFramework.Extensions;
 using HC10AutomationFramework.Helpers;
 using HC10AutomationFramework.TestTracker;
@@ -181,12 +182,12 @@ namespace HC10Test
 
             if (isNewMailbox)
             {
-                ReporterClass.Reporter("Exchange", "Host", "Verify New mailbox Advance Properties", "Test to verify that the Advance Properties set at the time of mailbox creation are set successfully", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify New mailbox Advance Properties", "Test to verify that the Advance Properties set at the time of mailbox creation are set successfully", organizationName, "Mailbox", email, "", status, standing);
 
             }
             else
             {
-                ReporterClass.Reporter("Exchange", "Host", "Verify New mailbox Advance Properties", "Test to verify that the Advance Properties set at the time of mailbox update are set successfully", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify New mailbox Advance Properties", "Test to verify that the Advance Properties set at the time of mailbox update are set successfully", organizationName, "Mailbox", email, "", status, standing);
             }
             return status;
         }

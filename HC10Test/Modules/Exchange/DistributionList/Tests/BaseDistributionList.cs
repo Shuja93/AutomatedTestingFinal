@@ -151,10 +151,10 @@ namespace HC10Test
 
             if (isNew == true)
             {
-                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Exchange Group Members", "Test to check if the Exchange Group have been assigned Members correctly at the time of creation", organizationName, groupType, email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Members in new Exchange Group", "Test to check if the newly created Exchange Group has been assigned Members correctly at the time of creation", organizationName, groupType, email, "", status, standing);
             }
 
-            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Exchange Group Members", "Test to check if the Exchange Group have been assigned Members correctly or not", organizationName, groupType, email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Members in Exchange Group via dashboard", "Test to check if the Exchange Group have been assigned Members via dashboard correctly or not", organizationName, groupType, email, "", status, standing);
 
             return status;
         }
@@ -199,10 +199,10 @@ namespace HC10Test
 
             if (isNew == true)
             {
-                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Administrators", "Test to check if the Exchange Group Administrators are added or not", organizationName, groupType, email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Administrators in new Exchange Group", "Test to check if the Administrators of new Exchange Group are added or not", organizationName, groupType, email, "", status, standing);
             }
 
-            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Administrators", "Test to check if the Exchange Group Administrators are added or not", organizationName, groupType, email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Administrators in Exchange Group via Dashboard", "Test to check if the Exchange Group Administrators are added or not via Dashboard", organizationName, groupType, email, "", status, standing);
 
             return status;
         }
@@ -259,6 +259,7 @@ namespace HC10Test
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
             string email = Convert.ToString(testContext.DataRow["Email"]);
             string userList = Convert.ToString(testContext.DataRow["SendOnBehalfUsers"]);
+            string groupType = Convert.ToString(testContext.DataRow["GroupType"]);
 
             //Act
             pageDlDashboard.OpenSendOnBehalf();
@@ -266,7 +267,7 @@ namespace HC10Test
 
             //Verify
             string status = VerifyResult(ExchangeMessages.AddSendOnBehalfUsers, standing);
-            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Send On Behalf Users", "Test to check if Send On Behalf users are added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Send On Behalf Users", "Test to check if Send On Behalf users are added successfully", organizationName, groupType, email, "Email List: " + userList, status, standing);
 
             return status;
         }
@@ -307,7 +308,7 @@ namespace HC10Test
             string standing = pageDlDashboard.SetSendAsPermissions(userList);
 
             //Verify
-            string status = VerifyResult(ExchangeMessages.AddSendAsPermissions, standing);
+            string status = VerifyResult(ExchangeMessages.AddSendAsPermissionDl, standing);
             ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Send As Permissions", "Test to check if Send As Permissions are being added successfully", organizationName, groupType, email, "Email List: " + userList, status, standing);
             return status;
 
@@ -342,6 +343,7 @@ namespace HC10Test
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
             string email = Convert.ToString(testContext.DataRow["Email"]);
             string userList = Convert.ToString(testContext.DataRow["AcceptedSenders"]);
+            string groupType = Convert.ToString(testContext.DataRow["GroupType"]);
 
             pageDlDashboard.OpenAcceptedSenders();
 
@@ -350,7 +352,7 @@ namespace HC10Test
 
             //Verify
             string status = VerifyResult(ExchangeMessages.AddAcceptedUsers, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Accepted Users", "Test to check if Accepted Users are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", "Host", "Add Accepted Users", "Test to check if Accepted Users are being added successfully", organizationName, groupType, email, "Email List: " + userList, status, standing);
             return status;
 
         }

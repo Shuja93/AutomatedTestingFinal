@@ -90,6 +90,15 @@ namespace HC10Test
                 _softAssertions.Add("Test Add Advance Properties", TestStatus.Success,
                     AddAdvanceProperties(TestContext));
 
+                _softAssertions.Add("Test Add Members", TestStatus.Success, AddMembersDL(TestContext));
+                _softAssertions.Add("Test Verify Add Members", TestStatus.Success, VerifyMembersDL(TestContext, false));
+
+                _softAssertions.Add("Test Add Administrator", TestStatus.Success, AddAdministratorDL(TestContext));
+                _softAssertions.Add("Test Add Administrator", TestStatus.Success, VerifyMembersDL(TestContext, false));
+
+
+
+
                 _softAssertions.Add("Test Add Email Address", TestStatus.Success,
                     AddAdditionalEmailAddress(TestContext));
                 _softAssertions.Add("Test Verify Add Email Address", TestStatus.Success,
@@ -117,11 +126,7 @@ namespace HC10Test
                 _softAssertions.Add("Test Verify Add Rejected Users", TestStatus.Success, 
                     VerifyRejectedSenders(TestContext));
 
-                _softAssertions.Add("Test Add Members", TestStatus.Success, AddMembersDL(TestContext));
-                _softAssertions.Add("Test Verify Add Members", TestStatus.Success, VerifyMembersDL(TestContext,false));
-
-                _softAssertions.Add("Test Add Administrator", TestStatus.Success, AddAdministratorDL(TestContext));
-                _softAssertions.Add("Test Add Administrator", TestStatus.Success, VerifyMembersDL(TestContext,false));
+               
 
 
                 ClickDlBreakCrumb();

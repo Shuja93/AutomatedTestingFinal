@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RunSettings>
   <AUT>https://hostingcontrollerdemo.com/</AUT>
-  <Browser>Firefox</Browser>
-  <UserLevel>reseller</UserLevel>
-  <Module>Mailbox</Module>
+  <Browser>Chrome</Browser>
+  <UserLevel>Host</UserLevel>
+  <Module>ResourceMailbox</Module>
 </RunSettings>

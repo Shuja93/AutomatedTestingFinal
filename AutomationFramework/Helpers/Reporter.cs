@@ -25,7 +25,7 @@ namespace HC10AutomationFramework.Helpers
         {
             string dir = GetDirectory.GetDir();
             
-            fileName = userLevel.ToLower() + "_" + browser.ToLower() + "_" + module.ToLower() + ".csv";
+            fileName = userLevel.ToLower() + "_" + module.ToLower()+ "_" + browser.ToLower()+ ".csv";
             file = dir + "\\HC10Test\\Reports\\" + fileName;
             StringBuilder csvContent = new StringBuilder();
             csvContent.AppendLine(columnName);
