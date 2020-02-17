@@ -17,22 +17,7 @@ namespace HC10Test.PageObjects
     class ExgMailboxDashboard : BasePage
     {
         private IWebElement btnAddForwardinguser => ByXPath("//*[@id='browseButton']");
-        //private IWebElement advancedProperties => DriverContext.Driver.FindElement(By.CssSelector("[href*='#SAdvancedProperties123456']"));
-        //private IWebElement btnMailBoxGenPropSaveElem => ById("btnMailBoxGenPropSave");
-        //private IWebElement txtGeneralProfileOfficeLocationElem => ById("GeneralProfile_OfficeLocation");
-        //private IWebElement txtGeneralProfileStreetAddressElem => ById("GeneralProfile_StreetAddress");
-        //private IWebElement txtGeneralProfileCityElem => ById("GeneralProfile_City");
-        //private IWebElement txtGeneralProfileZipCodeElem => ById("GeneralProfile_ZipCode");
-        //private IWebElement txtGeneralProfileJobTitleElem => ById("GeneralProfile_JobTitle");
-        //private IWebElement txtxGeneralProfileCompanyElem => ById("GeneralProfile_Company");
-        //private IWebElement btnAddManagerElem => ByXPath("//*[@id='mailboxUserProfileEditor']/div[9]/div[2]/div[2]/button");
-        //private IWebElement txtGeneralProfileBusinessPhoneElem => ById("GeneralProfile_BusinessPhone");
-        //private IWebElement txtGeneralProfileFaxElem => ById("GeneralProfile_Fax");
-        //private IWebElement txtGeneralProfileHomePhoneElem => ById("GeneralProfile_HomePhone");
-        //private IWebElement txtGeneralProfilePagerElem => ById("GeneralProfile_Pager");
-        //private IWebElement txtGeneralProfileNotesElem => ById("GeneralProfile_Notes");
-        //private IWebElement txtGeneralProfileMobilePhoneElem => ById("GeneralProfile_MobilePhone");
-        //private IWebElement txtGeneralProfileDepartmentElem => ById("GeneralProfile_Department");
+
         private IWebElement lnkRetentionPolicyElem => DriverContext.Driver.FindElement(By.CssSelector("[href*='#SRetentionPolicy123456']"));
         private IWebElement lnkMailboxSignatureElem => DriverContext.Driver.FindElement(By.CssSelector("[href*='#MailboxSignature']"));
  

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HC10AutomationFramework.Base;
 using HC10AutomationFramework.Enum;
 using HC10AutomationFramework.Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using HC10AutomationFramework.Resources;
 
 namespace HC10Test.PageObjects
 {
@@ -64,12 +61,18 @@ namespace HC10Test.PageObjects
 
                 if (isCR == true)
                 {
-                    SeleniumHelperMethods.SelectDropDownValue(dropdownCRElem, mailboxSize);
+                    if (!SeleniumHelperMethods.SelectDropDownValue(dropdownCRElem, mailboxSize)) 
+                    {
+                        return ErrorDescriptions.ErrorSelectingCR;
+                    }
                 }
 
                 else
                 {
-                    SeleniumHelperMethods.SelectDropDownValue(dropdownCRElem, accumulatedQuota);
+                    if (!SeleniumHelperMethods.SelectDropDownValue(dropdownCRElem, accumulatedQuota))
+                    {
+                        return ErrorDescriptions.ErrorSelectingCR;
+                    }
 
                     SetCheckBox(ckbxImapElem, isImapEnabled);
                     SetCheckBox(ckbxPopElem, isPopEnabled);

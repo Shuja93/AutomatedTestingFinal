@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Threading;
 using HC10AutomationFramework.Enum;
 using HC10AutomationFramework.Helpers;
+using HC10AutomationFramework.Resources;
 
 namespace HC10Test.PageObjects
 {
@@ -28,7 +29,10 @@ namespace HC10Test.PageObjects
         public string CreatePublicFolder(string publicFolderName, string publicFolderType, bool isMailEnable,
             string email, string publicFolderMailbox, string publicFolderSize, bool isCr)
         {
-
+            if (!SeleniumHelperMethods.WaitExpectedConditionsClickable(DriverContext.Driver, btnCreatePublicFolder))
+            {
+                return ErrorDescriptions.CreateButtonTimeout;
+            }
             try
             {
                 txtPublicFolderNameElem.SendKeys(publicFolderName);

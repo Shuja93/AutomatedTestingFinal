@@ -60,8 +60,8 @@ namespace HC10Test
 
             NavigateToMailboxPage(TestContext);
             _softAssertions.Add("Test Create Mailbox", TestStatus.Success, CreateMailbox(TestContext));
-            
 
+            
             if (TestTracker.mailboxStatus[Convert.ToString(TestContext.DataRow["Email"])] == TestStatus.Success)
             {
                 NavigateToMailboxDashboard(TestContext);
@@ -93,6 +93,7 @@ namespace HC10Test
                 _softAssertions.Add("Test Verify Update General Properties", TestStatus.Success, VerifyMailBoxGeneralProfile(TestContext,false));
 
                 _softAssertions.Add("Test  Update Advance Properties", TestStatus.Success, UpdateMailboxAdvanceProperties(TestContext));
+                _softAssertions.Add("Test  Update Advance Properties", TestStatus.Success, VerifyMailBoxAdvanceProperties(TestContext,false));
 
                 _softAssertions.Add("Test Update Retention Policy", TestStatus.Success, UpdateRetentionPolicy(TestContext));
                 _softAssertions.Add("Test Verify Update Retention Policy", TestStatus.Success, VerifyRetentionPolicy(TestContext));
@@ -113,7 +114,7 @@ namespace HC10Test
                 _softAssertions.Add("Test Verify Add AcceptedSenders Users", TestStatus.Success, VerifyAcceptedSenders(TestContext));
 
                 _softAssertions.Add("Test Add Rejected Users", TestStatus.Success, AddRejectedSenders(TestContext));
-                _softAssertions.Add("Test Verify Add SendOnBehalf Users", TestStatus.Success, VerifyRejectedSenders(TestContext));
+                _softAssertions.Add("Test Verify Add Rejected Users", TestStatus.Success, VerifyRejectedSenders(TestContext));
 
                 _softAssertions.Add("Test Add Forwarding User", TestStatus.Success, AddForwarding(TestContext));
                 _softAssertions.Add("Test Verify Add Forwarding Users", TestStatus.Success, VerifyForwarding(TestContext));

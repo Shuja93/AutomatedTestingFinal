@@ -1,0 +1,4 @@
+Module,User Role,Test Name,Test Description,OU Name,Object Name,Email,Test Parameters,Test Status,Message Details
+Module,User Role,Test Name,Test Description,OU Name,Object Name,Email,Test Parameters,Test Status,Message Details
+Exchange,Host,Verify Addition of Forwarding User,Test to check if forwarding Users have been assigned correctly or not,debugorg.com,Mailbox,user200@debugorg.com,,Passed,Passed
+Exchange,Host,Add Forwarding,Test to check if Forwarding User is being added successfully,debugorg.com,Mailbox,user200@debugorg.com,Organization: debugorg.com; Exchange Object: User; Email: forwarding@debugorg.com,Passed,Mailbox forwarding address updated successfully.

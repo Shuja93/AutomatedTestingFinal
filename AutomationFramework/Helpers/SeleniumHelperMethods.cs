@@ -3,7 +3,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Linq;
 using HC10AutomationFramework.Base;
-
+using HC10AutomationFramework.Logs;
 namespace HC10AutomationFramework.Helpers
 {
     public class SeleniumHelperMethods
@@ -16,9 +16,10 @@ namespace HC10AutomationFramework.Helpers
                 selectElement.SelectByText(value);
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
+                LogClass.AppendLogs(e);
             }
             
         }

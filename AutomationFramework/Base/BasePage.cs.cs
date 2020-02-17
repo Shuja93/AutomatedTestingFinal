@@ -36,6 +36,7 @@ namespace HC10AutomationFramework.Base
 
         public  void SelectExistingObject(IWebDriver driver, string id)
         {
+            
             var windows = driver.WindowHandles;
             driver.SwitchTo().Window(driver.WindowHandles.Last());
             driver.FindElement(By.XPath("//input[@type = 'radio' and contains(@id, '" + id + "')] ")).Click();
@@ -205,6 +206,7 @@ namespace HC10AutomationFramework.Base
 
         public string VerifyUsersInPermissions(IWebDriver driver, string userList, string divId)
         {
+            Thread.Sleep(2000);
             userList = userList.Trim();
             string status = TestStatus.Success;
             try

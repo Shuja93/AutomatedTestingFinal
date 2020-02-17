@@ -42,6 +42,8 @@ namespace HC10Test.PageObjects
             try
             {
                 btnTabRefreshButtonElem.ClickWithWait("spinner");
+                Thread.Sleep(2000);
+                string forwardingEmail = txtForwardingEmail.Text;
                 if (txtForwardingEmail.GetAttribute("value") != user)
                 {
                     return TestStatus.Failed;

@@ -4,6 +4,7 @@ using System;
 using HC10AutomationFramework.Base;
 using HC10AutomationFramework.Helpers;
 using HC10AutomationFramework.Logs;
+using System.Threading;
 
 namespace HC10AutomationFramework.Extensions
 {
@@ -47,21 +48,30 @@ namespace HC10AutomationFramework.Extensions
         //revisit
         public static void ClickWithWait(this IWebElement element,string waitMethod)
         {
-            DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            element.Click();
-            
-            switch (waitMethod) 
+            try
             {
-                case "header":
-                    HeaderWait();
-                    break;
-                case "spinner":
-                    SpinnerWait();
-                    break;
-                    
-            }
+                DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+                element.Click();
 
-            DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+                switch (waitMethod)
+                {
+                    case "header":
+                        HeaderWait();
+                        break;
+                    case "spinner":
+                        SpinnerWait();
+                        break;
+
+                }
+
+                DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            }
+            catch (ElementClickInterceptedException) 
+            {
+                Thread.Sleep(3000);
+                ClickWithWait(element, waitMethod);
+            }
+            
 
         }
 

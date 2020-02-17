@@ -42,6 +42,12 @@ namespace HC10AutomationFramework.Enum
             "User mailbox advanced properties updated successfully.";
 
         public static string AddSendAsPermissionDl => "Distribution list permission settings updated successfully.";
+        public static string AddPublicFolderEmailAddress => "Public folder email address added successfully.";
 
+        public static string AddPublicFolderForwardingAddress =>
+            "Public folder forwarding address(es) updated successfully.";
+
+        public static string UpdateMailContactAdvanceProperties => "Mail contact properties updated successfully.";
+        public static string UpdateMailContactGeneralProfile => "Mail contact properties updated successfully.";
     }
 }

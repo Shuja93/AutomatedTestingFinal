@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Threading;
 using HC10AutomationFramework.Enum;
 using HC10AutomationFramework.Helpers;
+using HC10AutomationFramework.Resources;
 
 namespace HC10Test.PageObject
 {
@@ -55,7 +56,11 @@ namespace HC10Test.PageObject
                 }
                 if (isSubOU == true)
                 {
-                   SelectSubOU(DriverContext.Driver, lnkSubOUElem, subOUWaitElem, subOUWaitBy);
+                    if (!SelectSubOU(DriverContext.Driver, lnkSubOUElem, subOUWaitElem,
+                         subOUWaitBy))
+                    {
+                        return ErrorDescriptions.ErrorSubOuNotFound;
+                    }
                 }
 
                 if (isNewGroup)

@@ -7,6 +7,7 @@ using HC10AutomationFramework.Logs;
 using HC10AutomationFramework.Enum;
 using System.Net.Mail;
 using System.Threading;
+using HC10AutomationFramework.Config;
 using HC10AutomationFramework.Extensions;
 using HC10AutomationFramework.Helpers;
 using HC10AutomationFramework.TestTracker;
@@ -18,8 +19,7 @@ namespace HC10Test
 {
     public class BasePublicFolder : BasePage
     {
-        private IWebElement btnAddForwardingUsers =>
-            ByXPath("//button[contains(@onclick = 'PublicFolder.GetMbxUser')]");
+        
 
         private readonly ExgPublicFolderDashboard pagePublicFolderDashboard;
         public BasePublicFolder()
@@ -63,7 +63,7 @@ namespace HC10Test
                 {
                     Thread.Sleep(5000);
                 }
-                //ReporterClass.Reporter("Exchange", "Host", "Create Mailbox", "Mailbox Creation Test", organizationName, "Mailbox", email, "SubOU: " + isSubOU + "; IsNewUser: " + isNewUser + "; IsCr: " + isCR + "; Mailbox/CR Size :" + mailboxSize, status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Create Public Folder", "Mailbox Creation Test", organizationName, "Public Folder", email, "Public Folder Type: " + publicFolderType + "; IsCr: " + isCr + "; Mailbox/CR Size :" + publicFolderSize+" IsMailEnabled: "+ isMailEnable, status, standing);
                 TestTracker.publicFolderStatus.Add(email, status);
 
                 return status;
@@ -186,8 +186,8 @@ namespace HC10Test
 
 
             //Verify
-            string status = VerifyResult(ExchangeMessages.AddMailContactEmailAddress, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Email Address", "Test to check if email addresses are added as additional aliases or not", organizationName, "Mailbox", email, "Email: " + newEmail, status, standing);
+            string status = VerifyResult(ExchangeMessages.AddPublicFolderEmailAddress, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Email Address", "Test to check if email addresses are added as additional aliases or not", organizationName, "Public Folder", email, "Email: " + newEmail, status, standing);
 
             return status;
 
@@ -210,7 +210,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of new email alias", "Test to check if the email address has been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of new email alias", "Test to check if the email address has been assigned correctly or not", organizationName, "Public Folder", email, "", status, standing);
             return status;
         }
 
@@ -228,7 +228,7 @@ namespace HC10Test
 
             //Verify
             string status = VerifyResult(ExchangeMessages.AddAcceptedUsers, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Accepted Users", "Test to check if Accepted Users are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Accepted Users", "Test to check if Accepted Users are being added successfully", organizationName, "Public Mailbox", email, "Email List: " + userList, status, standing);
             return status;
 
         }
@@ -242,6 +242,7 @@ namespace HC10Test
             string userList = Convert.ToString(testContext.DataRow["AcceptedSenders"]);
 
             //Act
+
             string standing = pagePublicFolderDashboard.VerifyAcceptedSenders(userList);
 
             //Verify
@@ -249,7 +250,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Accepted Users", "Test to check if Accepted Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Accepted Users", "Test to check if Accepted Users have been assigned correctly or not", organizationName, "Public Folder", email, "", status, standing);
             return status;
 
         }
@@ -267,7 +268,7 @@ namespace HC10Test
 
             //Verify    
             string status = VerifyResult(ExchangeMessages.AddRejectedSenders, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Rejected Users", "Test to check if Rejected Users are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Rejected Users", "Test to check if Rejected Users are being added successfully", organizationName, "Public Folder", email, "Email List: " + userList, status, standing);
             return status;
 
         }
@@ -285,7 +286,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Rejected Users", "Test to check if Rejected Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Rejected Users", "Test to check if Rejected Users have been assigned correctly or not", organizationName, "Public Folder", email, "", status, standing);
             return status;
 
 
@@ -301,10 +302,10 @@ namespace HC10Test
             string user = Convert.ToString(testContext.DataRow["ForwardingEmail"]);
 
             pagePublicFolderDashboard.OpenForwarding();
-            string standing = pagePublicFolderDashboard.SetForwarding(user, ou, exchangeObject, btnAddForwardingUsers);
+            string standing = pagePublicFolderDashboard.SetForwarding(user, ou, exchangeObject);
 
-            string status = VerifyResult(ExchangeMessages.AddForwarding, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Forwarding", "Test to check if Forwarding User is being added successfully", organizationName, "Mailbox", email, "Organization: " + ou + "; Exchange Object: " + exchangeObject + "; Email: " + user, status, standing);
+            string status = VerifyResult(ExchangeMessages.AddPublicFolderForwardingAddress, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Forwarding", "Test to check if Forwarding User is being added successfully", organizationName, "Public Folder", email, "Organization: " + ou + "; Exchange Object: " + exchangeObject + "; Email: " + user, status, standing);
             return status;
 
         }
@@ -322,7 +323,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Forwarding User", "Test to check if forwarding Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Forwarding User", "Test to check if forwarding Users have been assigned correctly or not", organizationName, "Public Folder", email, "", status, standing);
             return status;
         }
 

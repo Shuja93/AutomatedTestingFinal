@@ -5,6 +5,7 @@ using HC10AutomationFramework.Logs;
 using HC10AutomationFramework.Enum;
 using OpenQA.Selenium.Support.UI;
 using HC10AutomationFramework.Extensions;
+using HC10AutomationFramework.Resources;
 
 namespace HC10Test.PageObjects
 {
@@ -21,6 +22,10 @@ namespace HC10Test.PageObjects
                 ClickPermissionsSaveButton(DriverContext.Driver,divContainer);
                 return GetPrompt( headerProgressElem, headerProgressElemBy,
                     MessageContainer.ToastContainer);
+            }
+            catch (NoSuchElementException)
+            {
+                return ErrorDescriptions.ErrorAddingUserinPopUp;
             }
             catch (Exception ex)
             {

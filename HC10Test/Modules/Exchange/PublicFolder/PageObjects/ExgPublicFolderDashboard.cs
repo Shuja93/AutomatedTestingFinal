@@ -19,6 +19,8 @@ namespace HC10Test.PageObjects
 
         private IWebElement btnSetPermissionsToAllUsersELem =>
             ByXPath("//button[contains(@onclick , 'PublicFolder.EditPermissionsForAll')]");
+        private IWebElement btnAddForwardingUsers =>
+            ByXPath("//button[contains(@onclick , 'PublicFolder.GetMbxUser')]");
 
 
         private readonly DashboardEmailAddress pageEmailAddress;
@@ -58,7 +60,7 @@ namespace HC10Test.PageObjects
         public string VerifyAcceptedSenders(string userList) => pageAcceptedSenders.VerifyAcceptedSenders(userList);
         public string SetRejectedSenders(string userList) => pageRejectedSenders.SetRejectedSenders(userList);
         public string VerifyRejectedSenders(string userList) => pageRejectedSenders.VerifyRejectedSenders(userList);
-        public string SetForwarding(string user, string ou, string exchangeObject, IWebElement forwardingButton) => pageForwarding.SetForwarding(user, ou, exchangeObject, forwardingButton);
+        public string SetForwarding(string user, string ou, string exchangeObject) => pageForwarding.SetForwarding(user, ou, exchangeObject, btnAddForwardingUsers);
         public string VerifyForwarding(string user) => pageForwarding.VerifyForwarding(user);
 
 

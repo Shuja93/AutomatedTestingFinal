@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HC10Test.PageObjects;
 using HC10AutomationFramework.Base;
 using HC10AutomationFramework.Logs;
 using HC10AutomationFramework.Enum;
-using System.Net.Mail;
 using System.Threading;
+using HC10AutomationFramework.Config;
 using HC10AutomationFramework.Extensions;
 using HC10AutomationFramework.Helpers;
 using HC10AutomationFramework.TestTracker;
-using HC10Test.PageObject;
-using Microsoft.SqlServer.Server;
 using OpenQA.Selenium;
 
 namespace HC10Test
@@ -84,20 +81,20 @@ namespace HC10Test
                     Thread.Sleep(5000);
                 }
 
-                //ReporterClass.Reporter("Exchange", "Host", "Create Mailbox", "Mailbox Creation Test", organizationName,
-                //    "Mailbox", email,
-                //    "SubOU: " + isSubOU + "; IsNewUser: " + isNewUser + "; IsCr: " + isCR + "; Mailbox/CR Size :" +
-                //    mailboxSize, status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Create Mail Contact", "Mail Contact Creation Test", organizationName,
+                    "Mail Contact", externalEmail,
+                    "SubOU: " + isSubOU + "; Internal Email: " + internalEmail + ": External Email: " + externalEmail + ": Contact Name :" +
+                    contactName +" Maximum Recepients: "+maximumRecipients+" Maximum Receive Size: "+maximumReceiveSize, status, standing);
 
-                if (string.IsNullOrEmpty(internalEmail))
-                {
-                    TestTracker.mailContactStatus.Add(externalEmail, status);
-                }
-                else
-                {
-                    TestTracker.mailContactStatus.Add(internalEmail, status);
-                }
-                
+                //if (string.IsNullOrEmpty(internalEmail))
+                //{
+                //    TestTracker.mailContactStatus.Add(externalEmail, status);
+                //}
+                //else
+                //{
+                //    TestTracker.mailContactStatus.Add(internalEmail, status);
+                //}
+                TestTracker.mailContactStatus.Add(externalEmail, status);
                 return status;
             }
             catch (Exception e)
@@ -138,6 +135,7 @@ namespace HC10Test
             string mobilePhone = Convert.ToString(testContext.DataRow["MobilePhone"]);
             string pager = Convert.ToString(testContext.DataRow["Pager"]);
             string notes = Convert.ToString(testContext.DataRow["Notes"]);
+            string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
 
 
 
@@ -154,11 +152,11 @@ namespace HC10Test
 
             if (isNewMailbox)
             {
-                //ReporterClass.Reporter("Exchange", "Host", "Verify New mailbox General Properties", "Test to verify that the General Properties set at the time of mailbox creation are set successfully", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify New Mail Contact General Properties", "Test to verify that the Mail Contact General Properties set at the time of creation are set successfully", organizationName, "Mail Contact", externalEmail, "", status, standing);
             }
             else
             {
-                //ReporterClass.Reporter("Exchange", "Host", "Verify New mailbox General Properties", "Test to verify that the General Properties set at the time of mailbox update are set successfully", organizationName, "Mailbox", email, "", status, standing);
+                ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Mail Contact General Properties update", "Test to verify that the General Properties set at the time of mailbox update are set successfully", organizationName, "Mail Contact", externalEmail, "", status, standing);
             }
             return status;
         }
@@ -168,7 +166,6 @@ namespace HC10Test
 
             //Stage
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
-            string email = Convert.ToString(testContext.DataRow["Email"]);
             string firstname = Convert.ToString(testContext.DataRow["FirstName"]);
             string lastName = Convert.ToString(testContext.DataRow["LastName"]);
             string displayName = Convert.ToString(testContext.DataRow["NewDisplayName"]);
@@ -188,6 +185,7 @@ namespace HC10Test
             string mobilePhone = Convert.ToString(testContext.DataRow["MobilePhone"]);
             string pager = Convert.ToString(testContext.DataRow["Pager"]);
             string notes = Convert.ToString(testContext.DataRow["Notes"]);
+            string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
 
 
             //Act
@@ -198,8 +196,8 @@ namespace HC10Test
 
 
             //Verify
-            string status = VerifyResult(ExchangeMessages.UpdateMailboxGeneralProperties, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Update Mailbox General Properties", "Test to verify if General Properties are being updated properly or not", organizationName, "Mailbox", email, "Refer to CSV File", status, standing);
+            string status = VerifyResult(ExchangeMessages.UpdateMailContactGeneralProfile, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Update Mail Contact General Properties", "Test to verify if General Properties are being updated properly or not", organizationName, "Mail Contact", externalEmail, "Refer to CSV File", status, standing);
             return status;
         }
 
@@ -209,6 +207,7 @@ namespace HC10Test
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
             string email = Convert.ToString(testContext.DataRow["InternalEmailAddress"]);
             string newEmail = Convert.ToString(testContext.DataRow["AdditionalEmailAddress"]);
+            string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
 
             //Act
             pageMailContactDashboard.OpenEmailAddress();
@@ -218,7 +217,33 @@ namespace HC10Test
 
             //Verify
             string status = VerifyResult(ExchangeMessages.AddMailContactEmailAddress, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Email Address", "Test to check if email addresses are added as additional aliases or not", organizationName, "Mailbox", email, "Email: " + newEmail, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Email Address", "Test to check if email addresses are added as additional aliases or not", organizationName, "Mail Contact", externalEmail, "Email: " + newEmail, status, standing);
+
+            return status;
+
+        }
+
+        public string AddAdvanceProperties(TestContext testContext)
+        {
+            //Stage
+            string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
+            string email = Convert.ToString(testContext.DataRow["InternalEmailAddress"]);
+            string displayName = Convert.ToString(testContext.DataRow["NewContactName"]);
+            string externalEmailAddress = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
+            bool isHiddenFromAddressList  = Convert.ToBoolean(testContext.DataRow["IsHiddenFromAddressList"]);
+            string maximumRecipients = Convert.ToString(testContext.DataRow["MaximumRecipients"]);
+            string maximumReceiveSize = Convert.ToString(testContext.DataRow["MaximumReceiveSize"]);
+            
+
+            //Act
+            pageMailContactDashboard.OpenAdvancedProperties();
+            string standing = pageMailContactDashboard.SetAdvanceProperties(displayName, externalEmailAddress, isHiddenFromAddressList, maximumRecipients, maximumReceiveSize);
+
+
+
+            //Verify
+            string status = VerifyResult(ExchangeMessages.UpdateMailContactAdvanceProperties, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Email Address", "Test to check if email addresses are added as additional aliases or not", organizationName, "Mail Contact", externalEmailAddress, "Display Name: "+displayName + " External Email: "+externalEmailAddress+" IsHiddenFromAddressList: "+isHiddenFromAddressList+" Maximum Receive Size: "+maximumReceiveSize+" Maximum Recipients: "+maximumRecipients, status, standing);
 
             return status;
 
@@ -229,8 +254,9 @@ namespace HC10Test
             string status = TestStatus.Success;
             //Stage
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
-            string email = Convert.ToString(testContext.DataRow["Email"]);
             string newEmail = Convert.ToString(testContext.DataRow["AdditionalEmailAddress"]);
+            string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
+
 
             //Act
             string standing = pageMailContactDashboard.VerifyAdditionalEmailAddress(newEmail);
@@ -241,7 +267,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of new email alias", "Test to check if the email address has been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of new email alias", "Test to check if the email address has been assigned correctly or not", organizationName, "Mail Contact", externalEmail, "", status, standing);
             return status;
         }
 
@@ -252,6 +278,8 @@ namespace HC10Test
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
             string email = Convert.ToString(testContext.DataRow["InternalEmailAddress"]);
             string userList = Convert.ToString(testContext.DataRow["AcceptedSenders"]);
+            string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
+
             pageMailContactDashboard.OpenAcceptedSenders();
 
             //Act
@@ -259,7 +287,7 @@ namespace HC10Test
 
             //Verify
             string status = VerifyResult(ExchangeMessages.AddAcceptedUsers, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Accepted Users", "Test to check if Accepted Users are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Accepted Users", "Test to check if Accepted Users are being added successfully", organizationName, "Mail Contact", externalEmail, "Email List: " + userList, status, standing);
             return status;
 
         }
@@ -269,8 +297,10 @@ namespace HC10Test
             string status = TestStatus.Success;
             //Stage
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
-            string email = Convert.ToString(testContext.DataRow["Email"]);
+
             string userList = Convert.ToString(testContext.DataRow["AcceptedSenders"]);
+            string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
+
 
             //Act
             string standing = pageMailContactDashboard.VerifyAcceptedSenders(userList);
@@ -280,7 +310,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Accepted Users", "Test to check if Accepted Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Accepted Users", "Test to check if Accepted Users have been assigned correctly or not", organizationName, "Mail Contact", externalEmail, "", status, standing);
             return status;
 
         }
@@ -291,6 +321,8 @@ namespace HC10Test
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
             string email = Convert.ToString(testContext.DataRow["InternalEmailAddress"]);
             string userList = Convert.ToString(testContext.DataRow["RejectedSenders"]);
+            string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
+
             pageMailContactDashboard.OpenRejectedSenders();
 
             //Act
@@ -298,7 +330,7 @@ namespace HC10Test
 
             //Verify    
             string status = VerifyResult(ExchangeMessages.AddRejectedSenders, standing);
-            ReporterClass.Reporter("Exchange", "Host", "Add Rejected Users", "Test to check if Rejected Users are being added successfully", organizationName, "Mailbox", email, "Email List: " + userList, status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Add Rejected Users", "Test to check if Rejected Users are being added successfully", organizationName, "Mail Contact", externalEmail, "Email List: " + userList, status, standing);
             return status;
 
         }
@@ -307,8 +339,9 @@ namespace HC10Test
         {
             string status = TestStatus.Success;
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
-            string email = Convert.ToString(testContext.DataRow["Email"]);
             string userList = Convert.ToString(testContext.DataRow["RejectedSenders"]);
+            string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
+
 
             string standing = pageMailContactDashboard.VerifyRejectedSenders(userList);
 
@@ -316,7 +349,7 @@ namespace HC10Test
             {
                 status = TestStatus.Failed;
             }
-            ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Rejected Users", "Test to check if Rejected Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
+            ReporterClass.Reporter("Exchange", Settings.UserLevel, "Verify Addition of Rejected Users", "Test to check if Rejected Users have been assigned correctly or not", organizationName, "Mail Contact", externalEmail, "", status, standing);
             return status;
 
 
@@ -326,7 +359,6 @@ namespace HC10Test
         {
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
             string externalEmail = Convert.ToString(testContext.DataRow["ExternalEmailAddress"]);
-
             string status = pageMailContactDashboard.VerifyExternalEmailAddress(externalEmail);
             //ReporterClass.Reporter("Exchange", "Host", "Verify Addition of Rejected Users", "Test to check if Rejected Users have been assigned correctly or not", organizationName, "Mailbox", email, "", status, standing);
             return status;

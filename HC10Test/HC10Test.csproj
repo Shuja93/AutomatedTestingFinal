@@ -145,6 +145,7 @@
     <Compile Include="Modules\Exchange\Mailbox\Tests\BaseMailbox.cs" />
     <Compile Include="Modules\Exchange\Mailbox\Tests\TestClassMailbox.cs" />
     <Compile Include="Modules\Exchange\MailContacts\PageObjects\ExgCreateMailContact.cs" />
+    <Compile Include="Modules\Exchange\MailContacts\PageObjects\ExgMailContactAdvanceProperties.cs" />
     <Compile Include="Modules\Exchange\MailContacts\PageObjects\ExgMailContactDashboard.cs" />
     <Compile Include="Modules\Exchange\MailContacts\PageObjects\ExgOrgMailContacts.cs" />
     <Compile Include="Modules\Exchange\MailContacts\Tests\BaseMailContact.cs" />

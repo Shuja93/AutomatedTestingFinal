@@ -92,9 +92,18 @@ namespace HC10Test.PageObjects
 
                 else
                 {
+
                     radioExistingUserElem.Click();
                     btnChooseExistingElem.Click();
-                    SelectExistingObject(DriverContext.Driver, email);
+                    try 
+                    { 
+                        SelectExistingObject(DriverContext.Driver, email);
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        return ErrorDescriptions.ErrorUserNotFound;
+                    }
+                    
 
                 }
 
@@ -241,24 +250,9 @@ namespace HC10Test.PageObjects
             
 
             
-        }
-
-        //public void CloseDialogueBox()
-        //{
-        //    SeleniumHelperMethods.WaitExpectedConditionsClickable(DriverContext.Driver, btnCloseDialogueBox);
-        //    Thread.Sleep(2000);
-        //    btnCloseDialogueBox.Click();
-        //}
-
-        
+        }       
             
-        }
-
-
-
-
-
-
-
     }
+          
+}
 

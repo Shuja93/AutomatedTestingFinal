@@ -2,13 +2,9 @@
 using HC10AutomationFramework.Base;
 using System;
 using OpenQA.Selenium.Support.UI;
-using HC10AutomationFramework.Logs;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using HC10AutomationFramework.Enum;
-using HC10AutomationFramework.Helpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using HC10AutomationFramework.Resources;
 
 namespace HC10Test.PageObjects
 {
@@ -162,8 +158,6 @@ namespace HC10Test.PageObjects
         {
             try
             {
-                //SeleniumHelperMethods.WaitExpectedConditionsClickable(DriverContext.Driver, btnMailBoxGenPropSaveElem);
-
                 if (firstname != null)
                 {
                     txtFirstNameElem.Clear();
@@ -232,11 +226,15 @@ namespace HC10Test.PageObjects
 
                 if (!string.IsNullOrEmpty(managedBy))
                 {
-                    btnAddManagerElem.Click();
-                    DriverContext.Driver.SwitchTo().Window(DriverContext.Driver.WindowHandles.Last());
-                    DriverContext.Driver.FindElement(By.XPath("//input[contains(@id, '" + managedBy + "')]")).Click();
-                    DriverContext.Driver.FindElement(By.XPath("/html/body/div[2]/div/div[4]/div/div/form/div/div/div/button[2]")).Click();
-                    DriverContext.Driver.SwitchTo().Window(DriverContext.Driver.WindowHandles.First());
+                    try
+                    {
+                        SetManager(DriverContext.Driver, managedBy);
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        return ErrorDescriptions.ErrorUserNotFound;
+                    }
+                    
                 }
 
                 if (businessPhone != null)
@@ -284,6 +282,16 @@ namespace HC10Test.PageObjects
 
             }
 
+        }
+
+        private void SetManager(IWebDriver driver, string managedBy) 
+        {
+           
+            btnAddManagerElem.Click();
+            driver.SwitchTo().Window(DriverContext.Driver.WindowHandles.Last());
+            driver.FindElement(By.XPath("//input[contains(@id, '" + managedBy + "')]")).Click();
+            driver.FindElement(By.XPath("/html/body/div[2]/div/div[4]/div/div/form/div/div/div/button[2]")).Click();
+            driver.SwitchTo().Window(DriverContext.Driver.WindowHandles.First());
         }
     }
 }

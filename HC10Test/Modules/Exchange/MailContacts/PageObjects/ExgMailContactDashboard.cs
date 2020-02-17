@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HC10AutomationFramework.Base;
 using HC10AutomationFramework.Enum;
 using HC10AutomationFramework.Extensions;
@@ -16,7 +12,7 @@ namespace HC10Test.PageObjects
         private readonly DashboardAccepetedSenders pageAcceptedSenders;
         private readonly DashboardRejectedSenders pageRejectedSenders;
         private readonly DashboardGeneralProfile pageGeneralProfile;
-       //private readonly DashboardAdvanceProperties pageAdvanceProperties;
+       private readonly ExgMailContactAdvanceProperties pageAdvanceProperties;
 
         public ExgMailContactDashboard()
         {
@@ -24,7 +20,7 @@ namespace HC10Test.PageObjects
             pageAcceptedSenders = new DashboardAccepetedSenders();
             pageRejectedSenders = new DashboardRejectedSenders();
             pageGeneralProfile = new DashboardGeneralProfile();
-            //pageAdvanceProperties = new DashboardAdvanceProperties();
+            pageAdvanceProperties = new ExgMailContactAdvanceProperties();
         }
 
         public string VerifyGeneralProperties(string firstname, string lastName, string displayName, string country, string state, string
@@ -40,6 +36,9 @@ namespace HC10Test.PageObjects
             lastName, displayName, country, state,
             officeLocation, address, city, zipCode, jobTitle, company, department, managedBy, businessPhone,
             fax, homePhone, mobilePhone, pager, notes);
+
+        public string SetAdvanceProperties(string displayName, string externalEmailAddress, bool isHiddenFromAddressList, string maximumRecipients, string maximumReceiveSize) => pageAdvanceProperties.SetAdvanceProperties(displayName, externalEmailAddress, isHiddenFromAddressList, maximumRecipients, maximumReceiveSize);
+
 
         public string SetAdditionalEmailAddress(string additionalEmail) => pageEmailAddress.SetAdditionalEmailAddress(additionalEmail);
         public string VerifyAdditionalEmailAddress(string additionalEmail) => pageEmailAddress.VerifyAdditionalEmailAddress(additionalEmail);

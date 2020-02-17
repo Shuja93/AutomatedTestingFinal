@@ -3,5 +3,5 @@
   <AUT>https://hostingcontrollerdemo.com/</AUT>
   <Browser>Chrome</Browser>
   <UserLevel>Host</UserLevel>
-  <Module>ResourceMailbox</Module>
+  <Module>mailbox</Module>
 </RunSettings>

@@ -219,8 +219,6 @@ namespace HC10Test.PageObjects
                 return e.Message.Trim();
             }
 
-
-
             
         }
 

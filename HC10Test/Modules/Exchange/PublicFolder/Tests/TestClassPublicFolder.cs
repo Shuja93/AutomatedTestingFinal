@@ -2,13 +2,14 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HC10Test.PageObjects;
 using HC10AutomationFramework.Base;
+using HC10AutomationFramework.Config;
 using HC10AutomationFramework.Enum;
 using HC10AutomationFramework.TestTracker;
 
 namespace HC10Test
 {
     [TestClass]
-    [TestCategory("Public Folder")]
+    [TestCategory("PublicFolder")]
     public class TestClassPublicFolder : BasePublicFolder
     {
 
@@ -18,13 +19,8 @@ namespace HC10Test
         [ClassInitialize]
         public static void ClassSetup(TestContext TestContext)
         {
-
-            OpenBrowser(BrowserType.Chrome);
-            DriverContext.Browser.GoToUrl("https://hostingcontrollerdemo.com/");
-            DriverContext.Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            DriverContext.Driver.Manage().Window.Maximize();
-            LoginPage login = new LoginPage();
-            login.Login();
+            var testInitialize = new TestInitialize();
+            testInitialize.InitializeSettings();
         }
 
         [ClassCleanup]
@@ -46,23 +42,33 @@ namespace HC10Test
             _softAssertions.AssertAll();
         }
 
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", @"C:\Users\Shuja\source\repos\AutomationFramework\AutomatedTesting\HC10Test\Modules\Exchange\PublicFolder\Data\PublicFolder_Create.csv", "PublicFolder_Create#csv", DataAccessMethod.Sequential)]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\Modules\\Exchange\\PublicFolder\\Data\\PublicFolderCreate.csv", "PublicFolderCreate#csv", DataAccessMethod.Sequential)]
         [TestMethod]
         [TestCategory("Exchange")]
 
         public void PublicFolderCreation()
         {
+            if (Convert.ToString(TestContext.DataRow["Userlevel"]).ToLower() != Settings.UserLevel.ToLower())
+            {
+                Assert.Inconclusive();
+            }
+
+
             NavigateToPublicFolderPage(TestContext);
             _softAssertions.Add("Test Create Mailbox", TestStatus.Success, CreatePublicFolder(TestContext));
         }
 
-        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV",
-            @"C:\Users\Shuja\source\repos\AutomationFramework\AutomatedTesting\HC10Test\Modules\Exchange\MailContacts\Data\MailContact_Dashboard.csv", "MailContact_Dashboard#csv", DataAccessMethod.Sequential)]
+        [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\Modules\\Exchange\\PublicFolder\\Data\\PublicFolderDashboard.csv", "PublicFolderDashboard#csv", DataAccessMethod.Sequential)]
         [TestMethod]
         [TestCategory("Exchange")]
-        [TestCategory("Public Folder")]
+        
         public void PublicFolderUpdateDashboard()
         {
+            if (Convert.ToString(TestContext.DataRow["Userlevel"]).ToLower() != Settings.UserLevel.ToLower())
+            {
+                Assert.Inconclusive();
+            }
+
             if (TestTracker.publicFolderStatus[Convert.ToString(TestContext.DataRow["Email"])] == TestStatus.Success)
             {
                 NavigateToPublicFolderPage(TestContext);

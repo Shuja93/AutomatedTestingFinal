@@ -318,7 +318,6 @@ namespace HC10Test
             //Stage
             string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
             string email = Convert.ToString(testContext.DataRow["Email"]);
-            //string IsRetentionPolicy = Convert.ToString(testContext.DataRow["IsRetentionPolicy"]);
             string retentionPolicyDays = Convert.ToString(testContext.DataRow["RetentionPolicyDays"]);
             
             //Act
