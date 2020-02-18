@@ -2,6 +2,6 @@
 <RunSettings>
   <AUT>https://hostingcontrollerdemo.com/</AUT>
   <Browser>Chrome</Browser>
-  <UserLevel>Host</UserLevel>
+  <UserLevel>host</UserLevel>
   <Module>mailbox</Module>
 </RunSettings>

@@ -17,12 +17,20 @@ namespace HC10Test
     {
         public TestContext TestContext { get; set; }
         private SoftAssertions _softAssertions;
+        private readonly string userLevel;
+
+        public TestClassMailbox()
+        {
+            userLevel = Settings.UserLevel.ToLower();
+        }
+
 
         [ClassInitialize]
         public static void ClassSetup(TestContext TestContext)
         {
             var testInitialize = new TestInitialize();
             testInitialize.InitializeSettings();
+            
         }
 
         [ClassCleanup]
@@ -53,7 +61,7 @@ namespace HC10Test
         
         public void MailboxCreation()
         {
-            if (Convert.ToString(TestContext.DataRow["Userlevel"]).ToLower() != Settings.UserLevel.ToLower())
+            if (Convert.ToString(TestContext.DataRow["Userlevel"]).ToLower() != userLevel)
             {
                 Assert.Inconclusive();
             }
@@ -79,7 +87,7 @@ namespace HC10Test
         
         public void MailboxUpdateDashboard()
         {
-            if (Convert.ToString(TestContext.DataRow["Userlevel"]).ToLower() != Settings.UserLevel.ToLower())
+            if (Convert.ToString(TestContext.DataRow["Userlevel"]).ToLower() != userLevel)
             {
                 Assert.Inconclusive();
             }

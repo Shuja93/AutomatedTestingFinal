@@ -156,6 +156,7 @@ namespace HC10Test.PageObjects
 
         public string SetGeneralProperties(string firstname, string lastName, string displayName, string country, string state, string officeLocation, string address, string city, string zipCode, string jobTitle, string company, string department, string managedBy, string businessPhone, string fax, string homePhone, string mobilePhone, string pager, string notes)
         {
+            InternalErrorPresence(DriverContext.Driver);
             try
             {
                 if (firstname != null)

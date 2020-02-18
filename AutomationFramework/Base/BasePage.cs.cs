@@ -95,18 +95,22 @@ namespace HC10AutomationFramework.Base
         }
 
         //revisit
-        public bool InternalErrorPresence()
+        public bool InternalErrorPresence(IWebDriver driver)
         {
+            SetDriverTime(2);
             try
             {
-                var errorPresence = DriverContext.Driver.FindElement(By.CssSelector("error-desc"));
+                var errorPresence = driver.FindElement(By.CssSelector("error-desc"));
+                SetDriverTime(30);
                 return true;
             }
 
             catch (NoSuchElementException)
             {
+                SetDriverTime(30);
                 return false;
             }
+            
         }
 
         public void SetMailboxSize(string size)

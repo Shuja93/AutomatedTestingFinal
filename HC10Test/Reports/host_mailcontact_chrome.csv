@@ -1,2 +1,0 @@
-Module,User Role,Test Name,Test Description,OU Name,Object Name,Email,Test Parameters,Test Status,Message Details
-Exchange,Host,Create Mail Contact,Mail Contact Creation Test,debugorg.com,Mail Contact,shujahanif3c88cc4@gmail.com,SubOU: False; Internal Email: shujahanif883ccc4@debugorg.com: External Email: shujahanif3c88cc4@gmail.com: Contact Name :Test Contact 288 Maximum Recepients: 30 Maximum Receive Size: 30,Passed,Success: Exchange mail contact added successfully.
