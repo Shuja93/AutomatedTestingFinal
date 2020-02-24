@@ -127,59 +127,75 @@ namespace HC10Test.PageObjects
 
                 if (firstname != null || lastName != null || displayName != null || country != null || state != null || officeLocation != null || address != null || city != null || zipCode != null || jobTitle != null || company != null || department != null || managedBy != null || businessPhone != null || fax != null || homePhone != null || mobilePhone != null || pager != null || notes != null)
                 {
+
                     btnUserProfileElem.Click();
-                    if (firstname != null) { txtFirstNameElem.SendKeys(firstname); }
-                    if (lastName != null) { txtLastNameElem.SendKeys(lastName); }
-                    if (displayName != null) { txtDisplayNameElem.SendKeys(displayName); }
+
+                    if (!string.IsNullOrEmpty(firstname)) 
+                    {
+                        txtFirstNameElem.Clear();
+                        txtFirstNameElem.SendKeys(firstname);
+                    }
+
+                    if (!string.IsNullOrEmpty(lastName))
+                    {
+                        txtLastNameElem.Clear(); 
+                        txtLastNameElem.SendKeys(lastName);
+                    }
+
+                    if (!string.IsNullOrEmpty(displayName)) 
+                    {
+                        txtDisplayNameElem.Clear();
+                        txtDisplayNameElem.SendKeys(displayName);
+                    }
 
                     //if (country != null)
                     //{
                     //    SetCountryAndState(country, state);
                     //}
 
-                    if (officeLocation != null)
+                    if (!string.IsNullOrEmpty(officeLocation))
                     {
                         txtGeneralProfileOfficeLocationElem.Clear();
                         txtGeneralProfileOfficeLocationElem.SendKeys(officeLocation);
                     }
 
-                    if (address != null)
+                    if (!string.IsNullOrEmpty(address))
                     {
                         txtGeneralProfileStreetAddressElem.Clear();
                         txtGeneralProfileStreetAddressElem.SendKeys(address);
                     }
 
-                    if (city != null)
+                    if (!string.IsNullOrEmpty(city))
                     {
                         txtGeneralProfileCityElem.Clear();
                         txtGeneralProfileCityElem.SendKeys(city);
                     }
 
-                    if (zipCode != null)
+                    if (!string.IsNullOrEmpty(zipCode))
                     {
                         txtGeneralProfileZipCodeElem.Clear();
                         txtGeneralProfileZipCodeElem.SendKeys(zipCode);
                     }
 
-                    if (jobTitle != null)
+                    if (!string.IsNullOrEmpty(jobTitle))
                     {
                         txtGeneralProfileJobTitleElem.Clear();
                         txtGeneralProfileJobTitleElem.SendKeys(jobTitle);
                     }
 
-                    if (company != null)
+                    if (!string.IsNullOrEmpty(company))
                     {
                         txtxGeneralProfileCompanyElem.Clear();
                         txtxGeneralProfileCompanyElem.SendKeys(company);
                     }
 
-                    if (department != null)
+                    if (!string.IsNullOrEmpty(department))
                     {
                         txtGeneralProfileDepartmentElem.Clear();
                         txtGeneralProfileDepartmentElem.SendKeys(department);
                     }
 
-                    if (managedBy != null)
+                    if (!string.IsNullOrEmpty(managedBy))
                     {
                         try
                         {
@@ -197,37 +213,37 @@ namespace HC10Test.PageObjects
                    
                     }
 
-                    if (businessPhone != null)
+                    if (!string.IsNullOrEmpty(businessPhone))
                     {
                         txtGeneralProfileBusinessPhoneElem.Clear();
                         txtGeneralProfileBusinessPhoneElem.SendKeys(businessPhone);
                     }
 
-                    if (fax != null)
+                    if (!string.IsNullOrEmpty(fax))
                     {
                         txtGeneralProfileFaxElem.Clear();
                         txtGeneralProfileFaxElem.SendKeys(fax);
                     }
 
-                    if (homePhone != null)
+                    if (!string.IsNullOrEmpty(homePhone))
                     {
                         txtGeneralProfileHomePhoneElem.Clear();
                         txtGeneralProfileHomePhoneElem.SendKeys(homePhone);
                     }
 
-                    if (mobilePhone != null)
+                    if (!string.IsNullOrEmpty(mobilePhone))
                     {
                         txtGeneralProfileMobilePhoneElem.Clear();
                         txtGeneralProfileMobilePhoneElem.SendKeys(mobilePhone);
                     }
 
-                    if (pager != null)
+                    if (!string.IsNullOrEmpty(pager))
                     {
                         txtGeneralProfilePagerElem.Clear();
                         txtGeneralProfilePagerElem.SendKeys(pager);
                     }
 
-                    if (notes != null)
+                    if (!string.IsNullOrEmpty(notes))
                     {
                         txtGeneralProfileNotesElem.Clear();
                         txtGeneralProfileNotesElem.SendKeys(notes);
@@ -250,7 +266,8 @@ namespace HC10Test.PageObjects
             
 
             
-        }       
+        }
+
             
     }
           

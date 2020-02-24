@@ -21,7 +21,11 @@ namespace HC10Test.PageObjects
             ByXPath("//tr[1]//button[contains(@onclick, 'ExgMailbox.ShowDashboard')]");
         private IWebElement searchBarMailboxElem => DriverContext.Driver.FindElement(By.XPath("//*[@id='DisplayName']"));
 
-        protected IWebElement btnmailboxDisableElem => ByXPath("//tr[1]//button[contains(@onclick, 'ExgMailbox.EnDisableMailbox(this);')]");
+        private IWebElement btnmailboxDisableElem => ByXPath("//tr[1]//button[contains(@onclick, 'ExgMailbox.EnDisableMailbox(this);')]");
+
+        private IWebElement btnToggle => ByXPath("//*[@id='list-search']//button[contains(@onclick , 'Layout.ShowHideAdvSearch')]");
+        private IWebElement txtEmailAddress => ByXPath("//*[@id='EmailAddress']");
+        private IWebElement btnAdvanceSearch => ByXPath("//*[@id='AdvSearchSubmitButton']");
 
         public ExgCreateMailbox OpenCreateMailboxPage()
         {
@@ -45,6 +49,14 @@ namespace HC10Test.PageObjects
             
 
             SeleniumHelperMethods.ObjectSearchBar(DriverContext.Driver, searchBarMailboxElem, btnSearch, headerProgressElem,headerProgressElemBy, searchString);
+        }
+
+        public void SearchMailboxUsingEmail(string email) 
+        {
+            btnToggle.Click();
+            txtEmailAddress.SendKeys(email);
+            btnAdvanceSearch.Click();
+            SeleniumHelperMethods.LoadWait(DriverContext.Driver, headerProgressElem, headerProgressElemBy);
         }
 
         public ExgMailboxDashboard OpenMailboxDashboard() 

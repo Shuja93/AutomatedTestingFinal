@@ -24,6 +24,7 @@ namespace HC10Test.PageObjects
         {
             try
             {
+                SetDriverTime(30);
                 expectedProperties.Add("MailboxSize", mailboxSize);
                 expectedProperties.Add("IncomingSize", mailboxSize);
                 expectedProperties.Add("OutgoingSize", mailboxSize);

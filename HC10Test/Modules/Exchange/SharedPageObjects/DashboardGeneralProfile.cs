@@ -35,6 +35,7 @@ namespace HC10Test.PageObjects
         {
             try
             {
+                SetDriverTime(30);
                 expectedProperties.Add("FirstName", firstname);
                 expectedProperties.Add("LastName", lastName);
                 expectedProperties.Add("DisplayName", displayName);
@@ -76,7 +77,9 @@ namespace HC10Test.PageObjects
                 actualProperties.Add("Department", Convert.ToString(txtGeneralProfileDepartmentElem.GetAttribute("value")));
                 if (!string.IsNullOrEmpty(managedBy))
                 {
-                    actualProperties.Add("ManagedBy", Convert.ToString(listManager.Text));
+                    try { actualProperties.Add("ManagedBy", Convert.ToString(listManager.Text)); }
+                    catch (NoSuchElementException) { actualProperties.Add("ManagedBy", " "); }
+                    
                 }
                 actualProperties.Add("Business Phone", Convert.ToString(txtGeneralProfileBusinessPhoneElem.GetAttribute("value")));
                 actualProperties.Add("Fax", Convert.ToString(txtGeneralProfileFaxElem.GetAttribute("value")));

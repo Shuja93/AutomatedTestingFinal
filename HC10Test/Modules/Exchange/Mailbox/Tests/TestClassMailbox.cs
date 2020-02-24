@@ -1,18 +1,17 @@
 ﻿using System;
-using System.IO;
-using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HC10Test.PageObjects;
 using HC10AutomationFramework.Base;
 using HC10AutomationFramework.Config;
 using HC10AutomationFramework.Enum;
 using HC10AutomationFramework.TestTracker;
-using System.Web.Hosting;
+
 
 namespace HC10Test
 {
 
     [TestClass]
+    [TestCategory("Mailbox")]
+
     public class TestClassMailbox : BaseMailbox
     {
         public TestContext TestContext { get; set; }
@@ -56,7 +55,7 @@ namespace HC10Test
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\Modules\\Exchange\\Mailbox\\Data\\MailboxCreation.csv", "MailboxCreation#csv", DataAccessMethod.Sequential)]
         [TestMethod]
         [TestCategory("Exchange")]
-        [TestCategory("Mailbox")]
+
     
         
         public void MailboxCreation()
@@ -83,7 +82,7 @@ namespace HC10Test
         [DataSource("Microsoft.VisualStudio.TestTools.DataSource.CSV", "|DataDirectory|\\Modules\\Exchange\\Mailbox\\Data\\MailboxUpdate.csv", "MailboxUpdate#csv", DataAccessMethod.Sequential)]
         [TestMethod]
         [TestCategory("Exchange")]
-        [TestCategory("Mailbox")]
+        
         
         public void MailboxUpdateDashboard()
         {
@@ -136,5 +135,7 @@ namespace HC10Test
 
             }
         }
+
+
     }
 }

@@ -722,7 +722,7 @@ namespace HC10Test
 
 
                 ExgOrgMailboxes orgMailboxes = new ExgOrgMailboxes();
-                orgMailboxes.SearchMailboxName(email, displayName);
+                orgMailboxes.SearchMailboxUsingEmail(email);
                 ExgMailboxDashboard mailboxDashboard = orgMailboxes.OpenMailboxDashboard();
                
                 //Act
@@ -784,113 +784,7 @@ namespace HC10Test
 
 
 
-        //public Tuple<IDictionary<string, string>, IDictionary<string, string>> VerifyUpdateMailboxGeneralProperties(
-        //    TestContext testContext)
-        //{
-        //    try
-        //    {
-        //        btnTabRefreshButtonElem.Click();
-        //        string firstname = Convert.ToString(testContext.DataRow["FirstName"]);
-        //        string lastName = Convert.ToString(testContext.DataRow["LastName"]);
-        //        string displayName = Convert.ToString(testContext.DataRow["NewDisplayName"]);
-        //        string country = Convert.ToString(testContext.DataRow["Country"]);
-        //        string state = Convert.ToString(testContext.DataRow["State"]);
-        //        string officeLocation = Convert.ToString(testContext.DataRow["OfficeLocation"]);
-        //        string address = Convert.ToString(testContext.DataRow["Address"]);
-        //        string city = Convert.ToString(testContext.DataRow["City"]);
-        //        string zipCode = Convert.ToString(testContext.DataRow["ZipCode"]);
-        //        string jobTitle = Convert.ToString(testContext.DataRow["JobTitle"]);
-        //        string company = Convert.ToString(testContext.DataRow["Company"]);
-        //        string department = Convert.ToString(testContext.DataRow["Department"]);
-        //        string managedBy = Convert.ToString(testContext.DataRow["ManagedBy"]);
-        //        string businessPhone = Convert.ToString(testContext.DataRow["BusinessPhone"]);
-        //        string fax = Convert.ToString(testContext.DataRow["Fax"]);
-        //        string homePhone = Convert.ToString(testContext.DataRow["HomePhone"]);
-        //        string mobilePhone = Convert.ToString(testContext.DataRow["MobilePhone"]);
-        //        string pager = Convert.ToString(testContext.DataRow["Pager"]);
-        //        string notes = Convert.ToString(testContext.DataRow["Notes"]);
-
-
-        //        //Act
-        //        IDictionary<string, string> expectedMailboxGeneralProperties = new Dictionary<string, string>();
-        //        expectedMailboxGeneralProperties.Add("FirstName", firstname);
-        //        expectedMailboxGeneralProperties.Add("LastName", lastName);
-        //        expectedMailboxGeneralProperties.Add("DisplayName", displayName);
-        //        expectedMailboxGeneralProperties.Add("Country", country);
-        //        expectedMailboxGeneralProperties.Add("State", state);
-        //        expectedMailboxGeneralProperties.Add("Office Location", officeLocation);
-        //        expectedMailboxGeneralProperties.Add("Address", address);
-        //        expectedMailboxGeneralProperties.Add("City", city);
-        //        expectedMailboxGeneralProperties.Add("Zip Code", zipCode);
-        //        expectedMailboxGeneralProperties.Add("Job Title", jobTitle);
-        //        expectedMailboxGeneralProperties.Add("Company", company);
-        //        expectedMailboxGeneralProperties.Add("Department", department);
-        //        expectedMailboxGeneralProperties.Add("ManagedBy", managedBy);
-        //        expectedMailboxGeneralProperties.Add("Business Phone", businessPhone);
-        //        expectedMailboxGeneralProperties.Add("Fax", fax);
-        //        expectedMailboxGeneralProperties.Add("Home Phone", homePhone);
-        //        expectedMailboxGeneralProperties.Add("Mobile Phone", mobilePhone);
-        //        expectedMailboxGeneralProperties.Add("Pager", pager);
-        //        expectedMailboxGeneralProperties.Add("Notes", notes);
-
-
-
-
-        //        ExgMailboxDashboard mailboxDashboard = new ExgMailboxDashboard();
-        //        IDictionary<string, string> actualMailboxStorageProperties = mailboxDashboard.VerifyGeneralProperties();
-        //        return Tuple.Create(expectedMailboxGeneralProperties, actualMailboxStorageProperties);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogClass.AppendLogs(ex);
-        //        return null;
-        //    }
-        //}
-
-
-        //public Tuple<IDictionary<string, string>, IDictionary<string, string>> VerifyMailBoxStorageQuota(
-        //    TestContext testContext)
-        //{
-        //    try
-        //    {
-        //        //Arrange
-        //        string organizationName = Convert.ToString(testContext.DataRow["OrganizationName"]);
-        //        string email = Convert.ToString(testContext.DataRow["Email"]);
-        //        string mailboxSize = Convert.ToString(testContext.DataRow["MailboxSize"]);
-        //        bool isCR = System.Convert.ToBoolean(testContext.DataRow["IsCR"]);
-        //        string displayName = Convert.ToString(testContext.DataRow["DisplayName"]);
-        //        //Act
-        //        IDictionary<string, string> expectedMailboxStorageProperties = new Dictionary<string, string>();
-        //        expectedMailboxStorageProperties.Add("MailboxSize", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("IncomingSize", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("OutgoingSize", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("ProhibitSendAt", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("IssueWarningAt", mailboxSize);
-        //        expectedMailboxStorageProperties.Add("Quota", isCR == false ? "Accumulated" : mailboxSize);
-
-
-
-        //        HomePage home = new HomePage();
-        //        home.ClickProvisioning();
-        //        ExchangeHome exgHome = home.ClickExchangeHome();
-        //        exgHome.SearchOrganizationName(organizationName);
-        //        ExgOrgMailboxes orgMailboxes = exgHome.MailboxesHome();
-        //        orgMailboxes.SearchMailboxName(email, displayName);
-        //        ExgMailboxDashboard mailboxDashboard = orgMailboxes.OpenMailboxDashboard();
-        //        mailboxDashboard.OpenAdvancedProperties();
-        //        IDictionary<string, string> actualMailboxStorageProperties = mailboxDashboard.GetStorageQuota();
-        //        return Tuple.Create(expectedMailboxStorageProperties, actualMailboxStorageProperties);
-
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        LogClass.AppendLogs(ex);
-        //        return null;
-
-        //    }
-
-        //}
+    
 
     }
 }

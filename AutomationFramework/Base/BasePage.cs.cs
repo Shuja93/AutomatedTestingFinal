@@ -251,10 +251,10 @@ namespace HC10AutomationFramework.Base
         public void AddForwardingPopUp(IWebDriver driver, string user, string ou, string exchangeObject)
         {
             driver.SwitchTo().Window(driver.WindowHandles.Last());
-            var selectObject = new SelectElement(dropdownExchangeObjects);
-            selectObject.SelectByText(exchangeObject);
             var selectOU = new SelectElement(dropdownOU);
             selectOU.SelectByText(ou);
+            var selectObject = new SelectElement(dropdownExchangeObjects);
+            selectObject.SelectByText(exchangeObject);
             driver.FindElement(By.Id(user)).Click();
             driver.FindElement(By.XPath("//button[contains(@onclick, 'SelectADUser')]"))
                 .Click();
