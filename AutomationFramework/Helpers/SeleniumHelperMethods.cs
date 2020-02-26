@@ -71,7 +71,7 @@ namespace HC10AutomationFramework.Helpers
             btnSearch.Click();
             //var wait = new WebDriverWait(DriverContext.Driver, new TimeSpan(0, 0, 30));
             //var element = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='headerProgressIndi']")));
-            SeleniumHelperMethods.LoadWait(driver, loadwaitElement, loadwaitString);
+            //SeleniumHelperMethods.LoadWait(driver, loadwaitElement, loadwaitString);
         }
 
 

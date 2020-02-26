@@ -6,12 +6,15 @@ using HC10AutomationFramework.Enum;
 using System;
 using HC10AutomationFramework.Extensions;
 using HC10AutomationFramework.Logs;
+using System.Threading;
 
 namespace HC10Test.PageObjects
 {
     class ExgOrgMailboxes : BasePage
 
     {
+
+       
 
 
         private IWebElement btnCreateMailboxPageElem =>
@@ -55,8 +58,10 @@ namespace HC10Test.PageObjects
         {
             btnToggle.Click();
             txtEmailAddress.SendKeys(email);
+            Thread.Sleep(2000);
             btnAdvanceSearch.Click();
             SeleniumHelperMethods.LoadWait(DriverContext.Driver, headerProgressElem, headerProgressElemBy);
+            Thread.Sleep(2000);
         }
 
         public ExgMailboxDashboard OpenMailboxDashboard() 

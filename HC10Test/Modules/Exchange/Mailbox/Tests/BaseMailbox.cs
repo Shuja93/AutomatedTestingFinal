@@ -751,6 +751,7 @@ namespace HC10Test
                     ExchangeHome exgHome = home.ClickExchangeHome();
                     exgHome.SearchOrganizationName(organizationName);
                     ExgOrgMailboxes orgMailboxes = exgHome.MailboxesHome();
+                    
                 }
 
                 else if (DriverContext.Driver.FindElement(By.XPath("//h2")).Text != "Manage Mailboxes" && !DriverContext.Driver.FindElement(By.XPath("//p")).Text.Contains(organizationName))
@@ -769,9 +770,9 @@ namespace HC10Test
 
             }
 
-            catch (Exception )
+            catch (Exception e)
             {
-                
+                LogClass.AppendLogs(e);
             }
             
         }

@@ -2,12 +2,19 @@
 using HC10AutomationFramework.Base;
 using HC10AutomationFramework.Helpers;
 using HC10AutomationFramework.Extensions;
+using System.Threading;
 
 namespace HC10Test.PageObjects
 {
     class ExchangeHome : BasePage
     {
+        public ExchangeHome() 
+        {
+            SetObjectViewLimit();
 
+        }
+
+        private IWebElement dropdownRecsPerPage => ByXPath("//*[@id='RecsPerPage']//select");
         private IWebElement dropdownValue =>
             DriverContext.Driver.FindElement(By.XPath("//*[@id='RecsPerPage']/div[2]/select"));
 
@@ -39,12 +46,15 @@ namespace HC10Test.PageObjects
         {
             SeleniumHelperMethods.ObjectSearchBar(DriverContext.Driver, searchBarOrganization, btnSearch,
                 headerProgressElem, headerProgressElemBy, objectName);
+            //Thread.Sleep(1000);
         }
 
         public ExgOrgMailboxes MailboxesHome()
         {
-            //btnMailbox.ClickWithWait("header"); 
-            btnMailbox.Click();
+            SetDriverTime(30);
+            Thread.Sleep(2000);
+            btnMailbox.ClickWithWait("header"); 
+            //btnMailbox.Click();
             return new ExgOrgMailboxes();
         }
 
@@ -77,6 +87,11 @@ namespace HC10Test.PageObjects
 
 
 
+        }
+
+        private void SetObjectViewLimit(string def = "100") 
+        {
+            SeleniumHelperMethods.SelectDropDownValue(dropdownRecsPerPage, def);
         }
     }
 

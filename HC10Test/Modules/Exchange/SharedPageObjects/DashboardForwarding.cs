@@ -43,8 +43,8 @@ namespace HC10Test.PageObjects
             {
                 btnTabRefreshButtonElem.ClickWithWait("spinner");
                 Thread.Sleep(2000);
-                string forwardingEmail = txtForwardingEmail.Text;
-                if (txtForwardingEmail.GetAttribute("value") != user)
+               
+                if (DriverContext.Driver.FindElement(By.XPath("//*[@id='RecipientName']")).GetAttribute("value") != user)
                 {
                     return TestStatus.Failed;
                 }
